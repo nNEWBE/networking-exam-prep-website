@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco Configuration Master | NetPrep</title>
+    <meta name="description"
+        content="The ultimate interactive cheat sheet for Cisco Packet Tracer. Master IOS commands with step-by-step visual guides.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Premium Google Fonts: Sora (Headings) & Space Grotesk (Body) & Fira Code (Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        heading: ['"Sora"', 'sans-serif'],
+                        mono: ['"Fira Code"', 'monospace'],
+                    },
+                    colors: {
+                        cisco: {
+                            blue: '#00bceb',
+                            cyan: '#00d4ff',
+                            dark: '#060810',
+                            card: '#0c1018',
+                            accent: '#10b981',
+                            light: '#f8fafc'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'bounce-soft': 'bounceSoft 2s ease-in-out infinite',
+                        'gradient-flow': 'gradientFlow 4s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(3deg)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.4', transform: 'scale(1)' },
+                            '100%': { opacity: '0.8', transform: 'scale(1.05)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        bounceSoft: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        gradientFlow: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Premium Font Styling */
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-heading {
+            font-family: 'Sora', sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .mono,
+        code,
+        pre {
+            font-family: 'Fira Code', monospace;
+            font-feature-settings: 'liga' 1;
+        }
+
+        /* Enhanced Grid Background - Light Mode */
+        .grid-bg {
+            background-size: 60px 60px;
+            background-image:
+                linear-gradient(to right, rgba(0, 188, 235, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 188, 235, 0.15) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+        }
+
+        /* Enhanced Grid Background - Dark Mode */
+        .dark .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(0, 212, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+        }
+
+        /* Gradient Orbs - Light Mode */
+        .gradient-orb-1 {
+            background: radial-gradient(circle, rgba(0, 188, 235, 0.25) 0%, transparent 70%);
+        }
+
+        .gradient-orb-2 {
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+        }
+
+        .gradient-orb-3 {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+        }
+
+        /* Gradient Orbs - Dark Mode */
+        .dark .gradient-orb-1 {
+            background: radial-gradient(circle, rgba(0, 188, 235, 0.15) 0%, transparent 70%);
+        }
+
+        .dark .gradient-orb-2 {
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
+        }
+
+        .dark .gradient-orb-3 {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+        }
+
+        /* Animated Gradient Text Effect */
+        .gradient-text-animated {
+            background: linear-gradient(90deg,
+                    #00bceb 0%,
+                    #00d4ff 20%,
+                    #a855f7 40%,
+                    #00d4ff 60%,
+                    #00bceb 80%,
+                    #00d4ff 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 4s ease infinite;
+        }
+
+        /* Premium modern buttons */
+        .btn-primary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #00bceb 0%, #00a3cc 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: none;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #00bceb 100%);
+        }
+
+        .btn-secondary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: transparent;
+            color: #00bceb;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 188, 235, 0.4);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.1) 0%, rgba(0, 188, 235, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(0, 188, 235, 0.8);
+            color: #00d4ff;
+        }
+
+        .dark .btn-secondary {
+            border-color: rgba(0, 188, 235, 0.3);
+        }
+
+        .dark .btn-secondary:hover {
+            border-color: rgba(0, 188, 235, 0.6);
+        }
+
+        /* Premium Glassmorphism - Light Mode */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 8px 32px 0 rgba(0, 188, 235, 0.08),
+                0 0 0 1px rgba(0, 0, 0, 0.02),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        /* Premium Glassmorphism - Dark Mode */
+        .dark .glass-card {
+            background: linear-gradient(135deg, rgba(12, 16, 24, 0.8) 0%, rgba(12, 16, 24, 0.6) 100%);
+            border: 1px solid rgba(0, 188, 235, 0.1);
+            box-shadow:
+                0 8px 32px 0 rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.02),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        /* ============================================
+           PREMIUM STEP CARD DESIGN
+        ============================================ */
+        .step-card {
+            position: relative;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+            border-radius: 24px;
+            padding: 2px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.15), rgba(0, 212, 255, 0.05), rgba(168, 85, 247, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 1;
+        }
+
+        .dark .step-card::before {
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.2), rgba(0, 212, 255, 0.1), rgba(168, 85, 247, 0.15));
+        }
+
+        .dark .step-card {
+            background: linear-gradient(145deg, rgba(15, 20, 30, 0.95) 0%, rgba(10, 14, 22, 0.9) 100%);
+        }
+
+
+
+        .step-card-inner {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border-radius: 22px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .dark .step-card-inner {
+            background: linear-gradient(145deg, rgba(15, 20, 30, 0.98) 0%, rgba(10, 14, 22, 0.95) 100%);
+        }
+
+        /* Corner Accent */
+        .step-card-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at top right, rgba(0, 188, 235, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Step Number Badge */
+        .step-number {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+            z-index: 20;
+            box-shadow: 0 8px 20px -5px var(--step-shadow-color, rgba(0, 188, 235, 0.4));
+        }
+
+        .step-number-blue {
+            background: linear-gradient(135deg, #00d4ff 0%, #0077be 100%);
+            --step-shadow-color: rgba(0, 188, 235, 0.4);
+        }
+
+        .step-number-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --step-shadow-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .step-number-purple {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            --step-shadow-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .step-number-orange {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            --step-shadow-color: rgba(249, 115, 22, 0.4);
+        }
+
+        /* Step Header */
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-top: 16px;
+        }
+
+        .step-title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dark .step-title {
+            color: #f3f4f6;
+        }
+
+        .step-title i {
+            color: var(--step-icon-color, #00bceb);
+            font-size: 1rem;
+        }
+
+        .step-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 6px;
+        }
+
+        .dark .step-description {
+            color: #9ca3af;
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.1) 0%, rgba(0, 188, 235, 0.05) 100%);
+            color: #00bceb;
+            border: 1px solid rgba(0, 188, 235, 0.2);
+        }
+
+        .step-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 2s infinite;
+        }
+
+        /* Premium Terminal Window - Redesigned */
+        .terminal-window {
+            background: linear-gradient(180deg, #1e2128 0%, #13151a 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .terminal-window::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+
+
+        .terminal-header {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            justify-content: space-between;
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .dot::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .dot:hover::after {
+            opacity: 1;
+        }
+
+        .dot-red {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+        }
+
+        .dot-yellow {
+            background: linear-gradient(135deg, #ffd93d 0%, #f0c929 100%);
+        }
+
+        .dot-green {
+            background: linear-gradient(135deg, #6bcb77 0%, #4ade80 100%);
+        }
+
+        .terminal-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+        }
+
+        .terminal-body {
+            padding: 20px 22px;
+            color: #e4e4e7;
+            font-size: 0.9rem;
+            line-height: 1.75;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 188, 235, 0.02) 100%);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .cmd-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .cmd-prompt {
+            color: #00d4ff;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .cmd-input {
+            color: #f8f8f2;
+            font-weight: 500;
+        }
+
+        .cmd-output {
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Copy Button - Modern Style */
+        .copy-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .copy-btn:hover::before {
+            left: 100%;
+        }
+
+        .copy-btn:hover {
+            color: #00d4ff;
+            background: rgba(0, 188, 235, 0.1);
+            border-color: rgba(0, 188, 235, 0.3);
+        }
+
+        /* Tip/Info Box */
+        .step-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            margin-top: 16px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.03) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .step-tip-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-tip-icon i {
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .step-tip-text {
+            font-size: 0.8rem;
+            color: #065f46;
+            line-height: 1.5;
+        }
+
+        .dark .step-tip-text {
+            color: #6ee7b7;
+        }
+
+        /* OLD action-card compatibility (for unstyled sections) */
+        .action-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.6) 100%);
+            border: 1px solid rgba(0, 188, 235, 0.1);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(0, 188, 235, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dark .action-card {
+            background: linear-gradient(135deg, rgba(12, 16, 24, 0.6) 0%, rgba(6, 8, 16, 0.4) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cmd-input {
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+
+
+        /* Premium Step Markers */
+        .step-marker {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            color: white;
+            position: relative;
+            z-index: 10;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-marker::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(8px);
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .group:hover .step-marker::before {
+            inset: -6px;
+            opacity: 0.6;
+        }
+
+        .marker-blue {
+            background: linear-gradient(135deg, #00d4ff 0%, #0077be 100%);
+            box-shadow: 0 8px 25px rgba(0, 188, 235, 0.4);
+        }
+
+        .marker-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .marker-purple {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .group:hover .marker-blue {
+            box-shadow: 0 0 0 4px rgba(0, 188, 235, 0.25), 0 8px 25px rgba(0, 188, 235, 0.4);
+        }
+
+        .group:hover .marker-green {
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25), 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .group:hover .marker-purple {
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.25), 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Premium Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Step Animations */
+        .step-reveal {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-reveal.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-reveal:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .step-reveal:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .step-reveal:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .step-reveal:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        /* Nav Link Active State */
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00bceb, #00d4ff);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+
+        .nav-link.active {
+            color: #00bceb;
+            background-color: rgba(0, 188, 235, 0.08);
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Smooth transitions */
+        body,
+        .glass-card,
+        nav,
+        div,
+        p,
+        h1,
+        h2,
+        h3,
+        code,
+        footer,
+        .action-card {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Step Badge */
+        .step-badge {
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.1) 0%, rgba(0, 188, 235, 0.05) 100%);
+            border: 1px solid rgba(0, 188, 235, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .group:hover .step-badge {
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.2) 0%, rgba(0, 188, 235, 0.1) 100%);
+            border-color: rgba(0, 188, 235, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Copy Button Hover Effect */
+        .copy-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 188, 235, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .copy-btn:hover::before {
+            width: 150%;
+            height: 150%;
+        }
+
+        /* Floating particles effect */
+        @keyframes float-particle {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Section Gradient Borders */
+        .section-glow {
+            position: relative;
+        }
+
+        .section-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 20%;
+            right: 20%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--glow-color, #00bceb), transparent);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .section-glow:hover::before {
+            opacity: 1;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE STYLES
+        ======================================== */
+
+        /* Tablet Styles (max-width: 768px) */
+        @media (max-width: 768px) {
+
+            /* Grid Background - Smaller grid for mobile */
+            .grid-bg {
+                background-size: 40px 40px;
+            }
+
+            /* Reduced gradient orb sizes for mobile */
+            .gradient-orb-1,
+            .gradient-orb-2,
+            .gradient-orb-3 {
+                opacity: 0.5;
+            }
+
+            /* Navigation adjustments */
+            nav {
+                height: auto;
+            }
+
+            /* Glass Card - Less padding on mobile */
+            .glass-card {
+                padding: 16px;
+                border-radius: 20px;
+            }
+
+            /* Action Card - Compact on mobile */
+            .action-card {
+                padding: 18px;
+                border-radius: 16px;
+            }
+
+            /* Terminal - Compact styling */
+            .terminal-window {
+                border-radius: 12px;
+            }
+
+            .terminal-header {
+                padding: 10px 14px;
+            }
+
+            .terminal-body {
+                padding: 16px;
+                font-size: 0.85rem;
+                line-height: 1.6;
+                min-height: 70px;
+            }
+
+            .traffic-lights {
+                gap: 8px;
+            }
+
+            .dot {
+                width: 12px;
+                height: 12px;
+            }
+
+            /* Remove gap since marker is hidden */
+            .step-reveal {
+                gap: 0 !important;
+            }
+
+            /* Step Card Mobile Adjustments */
+            .step-card {
+                border-radius: 18px;
+            }
+
+            .step-card-inner {
+                padding: 18px;
+                padding-top: 28px;
+                border-radius: 16px;
+            }
+
+            .step-number {
+                width: 34px;
+                height: 34px;
+                font-size: 14px;
+                top: -10px;
+                left: 18px;
+                border-radius: 10px;
+            }
+
+            .step-title {
+                font-size: 1rem;
+            }
+
+            .step-description {
+                font-size: 0.8rem;
+            }
+
+            .step-badge {
+                display: none;
+            }
+
+            /* Section headers */
+            .section-glow::before {
+                left: 10%;
+                right: 10%;
+            }
+        }
+
+        /* Mobile Styles (max-width: 480px) */
+        @media (max-width: 480px) {
+
+            /* Even smaller grid */
+            .grid-bg {
+                background-size: 30px 30px;
+            }
+
+            /* Further reduce gradient orbs */
+            .gradient-orb-1,
+            .gradient-orb-2,
+            .gradient-orb-3 {
+                opacity: 0.3;
+                filter: blur(60px);
+            }
+
+            /* Glass Card - Minimal padding */
+            .glass-card {
+                padding: 14px;
+                border-radius: 16px;
+            }
+
+            /* Action Card - Even more compact */
+            .action-card {
+                padding: 14px;
+                border-radius: 14px;
+            }
+
+            /* Terminal adjustments for small screens */
+            .terminal-window {
+                border-radius: 10px;
+            }
+
+            .terminal-header {
+                padding: 8px 12px;
+            }
+
+            .terminal-body {
+                padding: 12px;
+                font-size: 0.8rem;
+                line-height: 1.5;
+                min-height: 60px;
+                word-break: break-all;
+                overflow-x: auto;
+            }
+
+            .cmd-prompt {
+                font-size: 0.75rem;
+                margin-right: 6px;
+            }
+
+            .cmd-input {
+                font-size: 0.8rem;
+            }
+
+            .traffic-lights {
+                gap: 6px;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            /* Hide section glow effect on mobile */
+            .section-glow::before {
+                display: none;
+            }
+
+            /* Reveal animation - reduced movement for mobile */
+            .reveal {
+                transform: translateY(20px);
+            }
+
+            .step-reveal {
+                transform: translateX(0);
+            }
+        }
+
+        /* Touch-friendly tap targets */
+        @media (hover: none) and (pointer: coarse) {
+
+            .nav-link,
+            .mobile-nav-link,
+            .copy-btn,
+            button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Disable hover transforms on touch devices */
+            .group:hover .action-card {
+                transform: none;
+            }
+
+            .group:hover .terminal-window {
+                transform: none;
+            }
+
+            .group:hover .step-marker {
+                transform: scale(1);
+            }
+        }
+
+        /* Landscape mobile adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                padding-top: 80px !important;
+                padding-bottom: 40px !important;
+            }
+
+            .glass-card {
+                padding: 20px;
+            }
+        }
+
+        /* Safe area insets for notched devices */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(0px, env(safe-area-inset-left));
+                padding-right: max(0px, env(safe-area-inset-right));
+            }
+
+            nav {
+                padding-left: max(16px, env(safe-area-inset-left));
+                padding-right: max(16px, env(safe-area-inset-right));
+            }
+
+            footer {
+                padding-bottom: max(40px, env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal,
+            .step-reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen relative bg-gradient-to-br from-slate-50 via-gray-100 to-slate-100 text-gray-900 dark:from-[#060810] dark:via-[#0a0c10] dark:to-[#0c0f15] dark:text-[#e6edf3] selection:bg-cisco-blue selection:text-white">
+
+    <!-- Dynamic Grid Background -->
+    <div class="fixed inset-0 z-0 grid-bg pointer-events-none h-screen"></div>
+
+    <!-- Premium Gradient Orbs - Multiple Layers -->
+    <div
+        class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] gradient-orb-1 rounded-full blur-[100px] animate-pulse-slow pointer-events-none">
+    </div>
+    <div
+        class="fixed top-[20%] right-[-15%] w-[45%] h-[45%] gradient-orb-2 rounded-full blur-[120px] animate-float pointer-events-none">
+    </div>
+    <div
+        class="fixed bottom-[-10%] left-[20%] w-[40%] h-[40%] gradient-orb-3 rounded-full blur-[100px] animate-float-delayed pointer-events-none">
+    </div>
+    <div
+        class="fixed bottom-[30%] right-[10%] w-[25%] h-[25%] gradient-orb-1 rounded-full blur-[80px] animate-glow pointer-events-none opacity-50">
+    </div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-white/70 dark:bg-[#0a0c10]/70 backdrop-blur-2xl border-b border-gray-200/60 dark:border-cyan-500/10 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 md:h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 sm:gap-3 cursor-pointer group"
+                    onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div
+                        class="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl bg-gradient-to-tr from-cisco-blue via-cyan-400 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30 transition-all duration-300">
+                        <i class="fa-solid fa-network-wired text-white text-sm sm:text-base md:text-lg"></i>
+                    </div>
+                    <span class="font-heading font-bold text-lg sm:text-xl tracking-tight">Net<span
+                            class="bg-gradient-to-r from-cisco-blue to-cyan-400 bg-clip-text text-transparent">Prep</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="#basics"
+                        class="nav-link px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-terminal mr-2 text-xs opacity-70"></i>Basics
+                    </a>
+                    <a href="#security"
+                        class="nav-link px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-shield-halved mr-2 text-xs opacity-70"></i>Security
+                    </a>
+                    <a href="#verification"
+                        class="nav-link px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-check-double mr-2 text-xs opacity-70"></i>Verification
+                    </a>
+
+                    <!-- Premium Theme Toggle -->
+                    <button id="theme-toggle"
+                        class="ml-5 relative inline-flex h-10 w-16 items-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 border border-gray-300/50 dark:border-gray-700/50 shadow-inner transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-cisco-blue focus:ring-offset-2 dark:focus:ring-offset-gray-900 group hover:shadow-lg">
+                        <span class="sr-only">Toggle Dark Mode</span>
+                        <span id="toggle-circle"
+                            class="inline-flex h-8 w-8 transform rounded-full bg-white dark:bg-gradient-to-br dark:from-gray-700 dark:to-gray-800 shadow-lg transition-all duration-500 ease-out translate-x-1 dark:translate-x-7 items-center justify-center group-hover:scale-110">
+                            <!-- Sun SVG -->
+                            <svg class="w-4 h-4 text-amber-500 dark:hidden drop-shadow-sm" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                            </svg>
+                            <!-- Moon SVG -->
+                            <svg class="w-4 h-4 text-cyan-400 hidden dark:block drop-shadow-sm" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-3">
+                    <button id="mobile-theme-toggle"
+                        class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800/80 text-gray-600 dark:text-gray-300 hover:scale-105 transition-all">
+                        <svg class="w-5 h-5 text-amber-500 dark:hidden" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-cyan-400 hidden dark:block" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <button id="mobile-menu-btn"
+                        class="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/5 focus:outline-none transition-all">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu"
+            class="md:hidden border-b border-gray-200/50 dark:border-gray-800/50 bg-white/90 dark:bg-[#0a0c10]/90 backdrop-blur-2xl">
+            <div class="px-4 pt-3 pb-6 space-y-2">
+                <a href="#basics"
+                    class="mobile-nav-link flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-terminal text-sm opacity-60"></i>Basics
+                </a>
+                <a href="#security"
+                    class="mobile-nav-link flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-shield-halved text-sm opacity-60"></i>Security
+                </a>
+                <a href="#verification"
+                    class="mobile-nav-link flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-check-double text-sm opacity-60"></i>Verification
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <header
+        class="relative z-10 pt-28 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-28 lg:pt-44 lg:pb-32 text-center px-4 sm:px-6 reveal active overflow-hidden">
+
+        <!-- Badge -->
+        <div
+            class="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-cisco-blue/10 to-cyan-500/10 border border-cisco-blue/20 text-cisco-blue text-[10px] sm:text-xs font-bold tracking-widest uppercase mb-6 sm:mb-8 backdrop-blur-sm">
+            <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cisco-blue opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-cisco-blue"></span>
+            </span>
+            Exam Ready 2026
+        </div>
+
+        <!-- Main Heading - Animated Gradient Text -->
+        <h1
+            class="text-4xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tighter mb-6 sm:mb-8 text-gray-900 dark:text-white font-heading leading-[1] sm:leading-[0.95]">
+            <span class="gradient-text-animated">
+                Master Cisco IOS
+            </span>
+            <br>
+            <span class="text-gray-800 dark:text-gray-100">Step-by-Step</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p
+            class="mt-4 sm:mt-6 max-w-xl sm:max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed font-medium px-2">
+            The ultimate interactive cheat sheet for Packet Tracer.
+            <br class="hidden sm:block">
+            <span class="text-gray-500 dark:text-gray-500 block sm:inline mt-1 sm:mt-0">Visualize commands, understand
+                the logic, and ace your
+                configuration tasks.</span>
+        </p>
+
+        <!-- CTA Buttons - Modern Design -->
+        <div class="mt-8 sm:mt-10 md:mt-12 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
+            <a href="#basics" class="btn-primary text-sm sm:text-base">
+                <i class="fa-solid fa-rocket text-xs sm:text-sm"></i>
+                Start Learning
+            </a>
+            <a href="https://github.com" target="_blank" class="btn-secondary text-sm sm:text-base">
+                <i class="fab fa-github text-base sm:text-lg"></i>
+                View Resources
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-4xl mx-auto px-3 sm:px-4 pb-20 sm:pb-32 space-y-16 sm:space-y-24 md:space-y-32">
+
+        <!-- GROUP 1: Hostname -->
+        <section id="basics" class="scroll-mt-24 sm:scroll-mt-32 section-spy">
+            <!-- Premium Section Header - Mobile Optimized -->
+            <div class="flex items-center gap-3 sm:gap-4 md:gap-5 mb-8 sm:mb-10 md:mb-12 reveal">
+                <div class="relative flex-shrink-0">
+                    <div
+                        class="h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-cisco-blue via-cyan-400 to-blue-600 rounded-full">
+                    </div>
+                    <div
+                        class="absolute inset-0 h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-cisco-blue to-cyan-400 rounded-full blur-md opacity-60">
+                    </div>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-1 flex-wrap">
+                        <span
+                            class="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-cisco-blue/10 text-cisco-blue text-xs sm:text-sm font-bold">01</span>
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+                            Device Identity</h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">Naming your
+                        router or
+                        switch for easy identification</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                style="--glow-color: #00bceb;">
+
+                <!-- Step 1 - NEW PREMIUM DESIGN -->
+                <div class="mb-8 sm:mb-10 group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-blue">1</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #00bceb;">
+                                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                        Enter Privileged Mode
+                                    </h3>
+                                    <p class="step-description">
+                                        Elevates permissions from User Exec (<code
+                                            class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-cisco-blue font-mono text-xs">></code>)
+                                        to Privileged Exec (<code
+                                            class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-cisco-blue font-mono text-xs">#</code>).
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex">
+                                    Required
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('enable')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="cmd-line">
+                                        <span class="cmd-prompt">Switch></span>
+                                        <span class="cmd-input">enable</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Optional Tip -->
+                            <div class="step-tip">
+                                <div class="step-tip-icon">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text">
+                                    <strong>Tip:</strong> You can also use <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-cisco-blue font-mono text-xs">en</code>
+                                    as a shortcut for this command.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 - NEW PREMIUM DESIGN -->
+                <div class="mb-8 sm:mb-10 group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-blue">2</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #00bceb;">
+                                        <i class="fa-solid fa-terminal"></i>
+                                        Enter Global Config
+                                    </h3>
+                                    <p class="step-description">
+                                        Access mode to change device-wide settings. Shortcut: <code
+                                            class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-cisco-blue font-mono text-xs">conf t</code>
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex">
+                                    Required
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('configure terminal')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="cmd-line">
+                                        <span class="cmd-prompt">Switch#</span>
+                                        <span class="cmd-input">configure terminal</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text">
+                                    <strong>Tip:</strong> Use <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-cisco-blue font-mono text-xs">conf t</code>
+                                    as a shortcut for this command.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 - NEW PREMIUM DESIGN -->
+                <div class="group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-blue">3</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #00bceb;">
+                                        <i class="fa-solid fa-tag"></i>
+                                        Set Hostname
+                                    </h3>
+                                    <p class="step-description">
+                                        Updates the prompt to your custom name instantly. Choose a descriptive name for
+                                        easy identification.
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex">
+                                    Config
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('hostname R1-Main')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="w-full">
+                                        <div class="cmd-line">
+                                            <span class="cmd-prompt">Switch(config)#</span>
+                                            <span class="cmd-input">hostname R1-Main</span>
+                                        </div>
+                                        <div class="cmd-line mt-2">
+                                            <span class="cmd-prompt">R1-Main(config)#</span>
+                                            <span class="cmd-output">← Hostname changed!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text">
+                                    <strong>Tip:</strong> Shortcut: <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-cisco-blue font-mono text-xs">host [name]</code>.
+                                    Use descriptive names like <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-gray-400 font-mono text-xs">NYC-RTR-01</code>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GROUP 2: Console Security -->
+        <section id="security" class="scroll-mt-24 sm:scroll-mt-32 section-spy">
+            <!-- Section Header -->
+            <div class="flex items-center gap-3 sm:gap-4 md:gap-5 mb-8 sm:mb-10 md:mb-12 reveal">
+                <div class="relative flex-shrink-0">
+                    <div
+                        class="h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-green-400 via-emerald-500 to-green-600 rounded-full">
+                    </div>
+                    <div
+                        class="absolute inset-0 h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-green-400 to-green-500 rounded-full blur-md opacity-60">
+                    </div>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-1 flex-wrap">
+                        <span
+                            class="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-green-500/10 text-green-500 text-xs sm:text-sm font-bold">02</span>
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+                            Console Security</h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">Locking down
+                        physical access to the device</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                style="--glow-color: #10b981;">
+
+                <!-- Step 1 -->
+                <div class="mb-8 sm:mb-10 group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-green">1</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #10b981;">
+                                        <i class="fa-solid fa-plug"></i>
+                                        Select Console Port
+                                    </h3>
+                                    <p class="step-description">
+                                        Enter line configuration mode for the physical console port (port 0).
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex"
+                                    style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); color: #10b981; border-color: rgba(16, 185, 129, 0.2);">
+                                    Config
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('line console 0')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="cmd-line">
+                                        <span class="cmd-prompt">R1(config)#</span>
+                                        <span class="cmd-input">line console 0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text">
+                                    <strong>Tip:</strong> Use <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-green-500 font-mono text-xs">line con 0</code>
+                                    as a shortcut for this command.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="mb-8 sm:mb-10 group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-green">2</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #10b981;">
+                                        <i class="fa-solid fa-key"></i>
+                                        Set Password
+                                    </h3>
+                                    <p class="step-description">
+                                        Define the case-sensitive password string for console access.
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex"
+                                    style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); color: #10b981; border-color: rgba(16, 185, 129, 0.2);">
+                                    Security
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('password cisco123')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="cmd-line">
+                                        <span class="cmd-prompt">R1(config-line)#</span>
+                                        <span class="cmd-input">password cisco123</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text">
+                                    <strong>Tip:</strong> Shortcut: <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-green-500 font-mono text-xs">pass [your-password]</code>.
+                                    Use strong passwords in production!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-green">3</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #10b981;">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                        Enable Login Check
+                                    </h3>
+                                    <p class="step-description">
+                                        <span class="text-green-500 font-semibold">Critical:</span> Forces the router to
+                                        ask for the password on console access.
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex"
+                                    style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
+                                    Critical
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('login')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="cmd-line">
+                                        <span class="cmd-prompt">R1(config-line)#</span>
+                                        <span class="cmd-input">login</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon"
+                                    style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                                    <i class="fa-solid fa-exclamation"></i>
+                                </div>
+                                <p class="step-tip-text" style="color: #fca5a5;">
+                                    <strong>Important:</strong> Without <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-red-400 font-mono text-xs">login</code>,
+                                    the password won't be enforced! This step is mandatory.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GROUP 3: Enable Secret -->
+        <section class="scroll-mt-24 sm:scroll-mt-32">
+            <!-- Section Header -->
+            <div class="flex items-center gap-3 sm:gap-4 md:gap-5 mb-8 sm:mb-10 md:mb-12 reveal">
+                <div class="relative flex-shrink-0">
+                    <div
+                        class="h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-orange-400 via-amber-500 to-orange-600 rounded-full">
+                    </div>
+                    <div
+                        class="absolute inset-0 h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-orange-400 to-orange-500 rounded-full blur-md opacity-60">
+                    </div>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-1 flex-wrap">
+                        <span
+                            class="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-orange-500/10 text-orange-500 text-xs sm:text-sm font-bold">03</span>
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+                            Privileged Mode Security</h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">Protecting
+                        the 'enable' command with encryption</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                style="--glow-color: #f97316;">
+
+                <!-- Step 1 -->
+                <div class="group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-orange">1</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #f97316;">
+                                        <i class="fa-solid fa-lock"></i>
+                                        Set Encrypted Secret
+                                    </h3>
+                                    <p class="step-description">
+                                        Uses MD5 encryption. This is the safest and recommended way to protect
+                                        privileged mode access.
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex"
+                                    style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); color: #f97316; border-color: rgba(249, 115, 22, 0.2);">
+                                    Encrypted
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('enable secret class123')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="cmd-line">
+                                        <span class="cmd-prompt">R1(config)#</span>
+                                        <span class="cmd-input">enable secret class123</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon"
+                                    style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text" style="color: #fdba74;">
+                                    <strong>Tip:</strong> Always use <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-orange-400 font-mono text-xs">enable secret</code>
+                                    instead of <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-gray-400 font-mono text-xs">enable password</code>
+                                    for MD5 encryption!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GROUP 4: Verification -->
+        <section id="verification" class="scroll-mt-24 sm:scroll-mt-32 section-spy">
+            <!-- Section Header -->
+            <div class="flex items-center gap-3 sm:gap-4 md:gap-5 mb-8 sm:mb-10 md:mb-12 reveal">
+                <div class="relative flex-shrink-0">
+                    <div
+                        class="h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-purple-400 via-violet-500 to-purple-600 rounded-full">
+                    </div>
+                    <div
+                        class="absolute inset-0 h-10 sm:h-12 md:h-14 w-1 sm:w-1.5 bg-gradient-to-b from-purple-400 to-purple-500 rounded-full blur-md opacity-60">
+                    </div>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-1 flex-wrap">
+                        <span
+                            class="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-purple-500/10 text-purple-500 text-xs sm:text-sm font-bold">04</span>
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+                            Verification & Saving</h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">Check your
+                        work and save configuration to NVRAM</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                style="--glow-color: #a855f7;">
+
+                <!-- Step 1 -->
+                <div class="mb-8 sm:mb-10 group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-purple">1</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        Exit Config Mode
+                                    </h3>
+                                    <p class="step-description">
+                                        Drop back to Privileged Exec mode (#) instantly. This exits all
+                                        sub-configuration modes.
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex"
+                                    style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
+                                    Exit
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('end')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="w-full">
+                                        <div class="cmd-line">
+                                            <span class="cmd-prompt">R1(config)#</span>
+                                            <span class="cmd-input">end</span>
+                                        </div>
+                                        <div class="cmd-line mt-2">
+                                            <span class="cmd-prompt">R1#</span>
+                                            <span class="cmd-output">← Back to privileged mode</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon"
+                                    style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text" style="color: #c4b5fd;">
+                                    <strong>Tip:</strong> You can also use <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-purple-400 font-mono text-xs">Ctrl+Z</code>
+                                    as a keyboard shortcut to exit configuration mode instantly.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="group step-reveal">
+                    <div class="step-card">
+                        <div class="step-number step-number-purple">2</div>
+                        <div class="step-card-inner">
+                            <div class="step-header">
+                                <div>
+                                    <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                        Save to NVRAM
+                                    </h3>
+                                    <p class="step-description">
+                                        <span class="text-purple-400 font-semibold">Important:</span> Ensures your
+                                        configuration survives a reboot by copying to startup-config.
+                                    </p>
+                                </div>
+                                <span class="step-badge hidden md:inline-flex"
+                                    style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
+                                    Critical
+                                </span>
+                            </div>
+
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="traffic-lights">
+                                        <div class="dot dot-red"></div>
+                                        <div class="dot dot-yellow"></div>
+                                        <div class="dot dot-green"></div>
+                                    </div>
+                                    <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                    <button onclick="copyText('copy running-config startup-config')" class="copy-btn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span class="hidden sm:inline">Copy</span>
+                                    </button>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="w-full">
+                                        <div class="cmd-line">
+                                            <span class="cmd-prompt">R1#</span>
+                                            <span class="cmd-input">copy running-config startup-config</span>
+                                        </div>
+                                        <div class="mt-2 text-gray-500 text-sm">
+                                            Destination filename [startup-config]? <span
+                                                class="text-white">&lt;Enter&gt;</span>
+                                        </div>
+                                        <div class="mt-1 text-green-400 text-sm">
+                                            Building configuration...
+                                        </div>
+                                        <div class="text-green-400 text-sm">
+                                            [OK]
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-tip">
+                                <div class="step-tip-icon"
+                                    style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <p class="step-tip-text" style="color: #c4b5fd;">
+                                    <strong>Tip:</strong> Shortcuts: <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-purple-400 font-mono text-xs">copy run start</code>
+                                    or <code
+                                        class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-purple-400 font-mono text-xs">wr</code>
+                                    (write memory).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Premium Footer - Mobile Optimized -->
+    <footer
+        class="relative z-10 bg-gradient-to-b from-transparent via-white/30 to-white/80 dark:from-transparent dark:via-[#0a0c10]/50 dark:to-[#0a0c10] border-t border-gray-200/50 dark:border-cyan-500/10 backdrop-blur-xl pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center gap-6 sm:gap-8 md:flex-row md:justify-between">
+
+                <!-- Brand -->
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                        <div
+                            class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-gradient-to-tr from-cisco-blue to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-network-wired text-white text-xs sm:text-sm md:text-base"></i>
+                        </div>
+                        <span class="font-heading font-bold text-lg sm:text-xl tracking-tight">Net<span
+                                class="bg-gradient-to-r from-cisco-blue to-cyan-400 bg-clip-text text-transparent">Prep</span></span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
+                        Simplifying Network Configuration.
+                    </p>
+                </div>
+
+                <!-- Links & Social - Touch friendly -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <a href="https://github.com" target="_blank"
+                        class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-gray-800/50 flex items-center justify-center text-gray-500 hover:text-cisco-blue hover:bg-cisco-blue/10 active:scale-95 transition-all duration-300">
+                        <i class="fab fa-github text-base sm:text-lg"></i>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-gray-800/50 flex items-center justify-center text-gray-500 hover:text-cisco-blue hover:bg-cisco-blue/10 active:scale-95 transition-all duration-300">
+                        <i class="fab fa-linkedin text-base sm:text-lg"></i>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-gray-800/50 flex items-center justify-center text-gray-500 hover:text-cisco-blue hover:bg-cisco-blue/10 active:scale-95 transition-all duration-300">
+                        <i class="fab fa-twitter text-base sm:text-lg"></i>
+                    </a>
+                </div>
+
+                <!-- Copyright & Credit -->
+                <div class="text-center md:text-right">
+                    <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 sm:mb-1.5">
+                        &copy; 2024 NetPrep. All rights reserved.
+                    </p>
+                    <p class="text-xs sm:text-sm font-semibold">
+                        Crafted with <span class="text-red-500">♥</span> by
+                        <span
+                            class="bg-gradient-to-r from-cisco-blue via-cyan-400 to-purple-500 bg-clip-text text-transparent font-bold">Shuvo</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Premium Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-6 right-4 md:right-8 transform translate-y-28 opacity-0 transition-all duration-500 ease-out z-50">
+        <div
+            class="bg-gradient-to-br from-gray-900 to-gray-800 dark:from-white dark:to-gray-100 text-white dark:text-gray-900 px-6 py-4 rounded-2xl shadow-2xl shadow-black/20 font-bold flex items-center gap-4 border border-gray-700/50 dark:border-gray-200/50 backdrop-blur-xl">
+            <div
+                class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center text-white shadow-lg shadow-green-500/30">
+                <i class="fa-solid fa-check text-sm"></i>
+            </div>
+            <div>
+                <p class="text-sm font-bold font-heading">Copied to Clipboard</p>
+                <p class="text-xs font-medium opacity-60">Ready to paste into CLI</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Dark Mode Logic =====
+        const themeToggleBtns = [document.getElementById('theme-toggle'), document.getElementById('mobile-theme-toggle')];
+        const html = document.documentElement;
+
+        // Initialize Theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage))) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        // Toggle Function with smooth transition
+        function toggleTheme() {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        }
+
+        themeToggleBtns.forEach(btn => {
+            if (btn) btn.addEventListener('click', toggleTheme);
+        });
+
+        // ===== Mobile Menu Logic =====
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+        }
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // ===== Copy Function with Enhanced Feedback =====
+        async function copyText(text) {
+            try {
+                // Try modern clipboard API first
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    // Fallback for older browsers
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.left = '-9999px';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                }
+
+                // Show toast notification
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-28', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate(50);
+
+                // Hide toast after delay
+                setTimeout(() => {
+                    toast.classList.add('translate-y-28', 'opacity-0');
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                }, 2500);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // ===== Scroll Reveal Animations =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe reveal elements
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ===== Step Reveal Animations (Staggered) =====
+        const stepRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        // Observe step-reveal elements
+        document.querySelectorAll('.step-reveal').forEach(el => stepRevealObserver.observe(el));
+
+        // ===== Active Nav Indicator (Scroll Spy) - Dynamic =====
+        const sections = document.querySelectorAll('.section-spy');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // Function to update active nav link
+        function updateActiveNav() {
+            const scrollPos = window.scrollY + 150; // Offset for nav height
+
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            // Update desktop nav links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update mobile nav links
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('text-cisco-blue');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('text-cisco-blue');
+                }
+            });
+        }
+
+        // Listen for scroll events
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+        // Initial call on page load
+        updateActiveNav();
+
+        // ===== Smooth Scroll for Anchor Links =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
