@@ -1290,11 +1290,225 @@
                 transform: none;
             }
         }
+
+        /* ========================================
+           HOSTNAME MODAL STYLES
+        ======================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: linear-gradient(145deg, rgba(15, 20, 30, 0.95) 0%, rgba(10, 14, 22, 0.98) 100%);
+            border: 1px solid rgba(0, 188, 235, 0.2);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 420px;
+            width: 100%;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(0, 188, 235, 0.1);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #00bceb 0%, #0099cc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 25px rgba(0, 188, 235, 0.3);
+        }
+
+        .modal-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .modal-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: #9ca3af;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .modal-input-group {
+            margin-bottom: 24px;
+        }
+
+        .modal-label {
+            display: block;
+            color: #d1d5db;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(0, 188, 235, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-input:focus {
+            border-color: #00bceb;
+            box-shadow: 0 0 0 3px rgba(0, 188, 235, 0.2);
+        }
+
+        .modal-input::placeholder {
+            color: #6b7280;
+        }
+
+        .modal-input.error {
+            border-color: #ef4444;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .modal-error {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .modal-error.show {
+            display: block;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #00bceb 0%, #0099cc 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .modal-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .modal-hint {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.75rem;
+            margin-top: 16px;
+        }
+
+        /* Light mode modal adjustments */
+        .light .modal-container {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border-color: rgba(0, 188, 235, 0.2);
+        }
+
+        .light .modal-title {
+            color: #111827;
+        }
+
+        .light .modal-subtitle {
+            color: #6b7280;
+        }
+
+        .light .modal-input {
+            background: rgba(0, 0, 0, 0.05);
+            color: #111827;
+        }
     </style>
 </head>
 
 <body
     class="min-h-screen relative bg-gradient-to-br from-slate-50 via-gray-100 to-slate-100 text-gray-900 dark:from-[#060810] dark:via-[#0a0c10] dark:to-[#0c0f15] dark:text-[#e6edf3] selection:bg-cisco-blue selection:text-white">
+
+    <!-- Hostname Modal -->
+    <div id="hostname-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-icon">
+                <i class="fa-solid fa-server"></i>
+            </div>
+            <h2 class="modal-title">Set Your Hostname</h2>
+            <p class="modal-subtitle">Enter a hostname for your Cisco device. This will be used throughout the
+                configuration examples.</p>
+            <div class="modal-input-group">
+                <label class="modal-label" for="hostname-input">Device Hostname</label>
+                <input type="text" id="hostname-input" class="modal-input" placeholder="e.g., R1-Main, NYC-RTR-01"
+                    autocomplete="off" autofocus>
+                <p id="hostname-error" class="modal-error">Please enter a valid hostname (letters, numbers, hyphens
+                    only)</p>
+            </div>
+            <button id="hostname-submit" class="modal-btn">
+                <i class="fa-solid fa-check"></i>
+                Set Hostname
+            </button>
+            <p class="modal-hint">You can change this later using the button in the navigation</p>
+        </div>
+    </div>
 
     <!-- Dynamic Grid Background -->
     <div class="fixed inset-0 z-0 grid-bg pointer-events-none h-screen"></div>
@@ -1343,7 +1557,11 @@
                         class="nav-link px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
                         <i class="fa-solid fa-check-double mr-2 text-xs opacity-70"></i>Verification
                     </a>
-
+                    <button id="nav-hostname-btn"
+                        class="ml-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center gap-2">
+                        <i class="fa-solid fa-server text-xs"></i>
+                        <span id="nav-hostname-display">Set Hostname</span>
+                    </button>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -1375,6 +1593,11 @@
                     class="mobile-nav-link flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
                     <i class="fa-solid fa-check-double text-sm opacity-60"></i>Verification
                 </a>
+                <button id="mobile-hostname-btn"
+                    class="w-full mt-2 px-4 py-3.5 rounded-xl text-base font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-server text-sm"></i>
+                    <span id="mobile-hostname-display">Set Hostname</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -1605,7 +1828,8 @@
                                         <div class="dot dot-green"></div>
                                     </div>
                                     <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
-                                    <button onclick="copyText('hostname R1-Main', event)" class="copy-btn">
+                                    <button id="hostname-copy-btn" onclick="copyHostnameCommand(event)"
+                                        class="copy-btn">
                                         <i class="fa-regular fa-copy"></i>
                                         <span class="hidden sm:inline">Copy</span>
                                     </button>
@@ -1614,10 +1838,12 @@
                                     <div class="w-full">
                                         <div class="cmd-line">
                                             <span class="cmd-prompt">Switch(config)#</span>
-                                            <span class="cmd-input">hostname R1-Main</span>
+                                            <span class="cmd-input">hostname <span id="hostname-cmd-value"
+                                                    class="hostname-dynamic">R1-Main</span></span>
                                         </div>
                                         <div class="cmd-line mt-2">
-                                            <span class="cmd-prompt">R1-Main(config)#</span>
+                                            <span class="cmd-prompt"><span id="hostname-prompt-value"
+                                                    class="hostname-dynamic">R1-Main</span>(config)#</span>
                                             <span class="cmd-output">← Hostname changed!</span>
                                         </div>
                                     </div>
@@ -1707,7 +1933,8 @@
                                 </div>
                                 <div class="terminal-body">
                                     <div class="cmd-line">
-                                        <span class="cmd-prompt">R1(config)#</span>
+                                        <span class="cmd-prompt"><span
+                                                class="hostname-dynamic">R1</span>(config)#</span>
                                         <span class="cmd-input">line console 0</span>
                                     </div>
                                 </div>
@@ -1763,7 +1990,8 @@
                                 </div>
                                 <div class="terminal-body">
                                     <div class="cmd-line">
-                                        <span class="cmd-prompt">R1(config-line)#</span>
+                                        <span class="cmd-prompt"><span
+                                                class="hostname-dynamic">R1</span>(config-line)#</span>
                                         <span class="cmd-input">password cisco123</span>
                                     </div>
                                 </div>
@@ -1820,7 +2048,8 @@
                                 </div>
                                 <div class="terminal-body">
                                     <div class="cmd-line">
-                                        <span class="cmd-prompt">R1(config-line)#</span>
+                                        <span class="cmd-prompt"><span
+                                                class="hostname-dynamic">R1</span>(config-line)#</span>
                                         <span class="cmd-input">login</span>
                                     </div>
                                 </div>
@@ -1909,7 +2138,8 @@
                                 </div>
                                 <div class="terminal-body">
                                     <div class="cmd-line">
-                                        <span class="cmd-prompt">R1(config)#</span>
+                                        <span class="cmd-prompt"><span
+                                                class="hostname-dynamic">R1</span>(config)#</span>
                                         <span class="cmd-input">enable secret class123</span>
                                     </div>
                                 </div>
@@ -2001,11 +2231,12 @@
                                 <div class="terminal-body">
                                     <div class="w-full">
                                         <div class="cmd-line">
-                                            <span class="cmd-prompt">R1(config)#</span>
+                                            <span class="cmd-prompt"><span
+                                                    class="hostname-dynamic">R1</span>(config)#</span>
                                             <span class="cmd-input">end</span>
                                         </div>
                                         <div class="cmd-line mt-2">
-                                            <span class="cmd-prompt">R1#</span>
+                                            <span class="cmd-prompt"><span class="hostname-dynamic">R1</span>#</span>
                                             <span class="cmd-output">← Back to privileged mode</span>
                                         </div>
                                     </div>
@@ -2065,7 +2296,7 @@
                                 <div class="terminal-body">
                                     <div class="w-full">
                                         <div class="cmd-line">
-                                            <span class="cmd-prompt">R1#</span>
+                                            <span class="cmd-prompt"><span class="hostname-dynamic">R1</span>#</span>
                                             <span class="cmd-input">copy running-config startup-config</span>
                                         </div>
                                         <div class="mt-2 text-gray-500 text-sm">
@@ -2344,6 +2575,123 @@
                 }
             });
         });
+
+        // ===== Hostname Modal Functionality =====
+        const hostnameModal = document.getElementById('hostname-modal');
+        const hostnameInput = document.getElementById('hostname-input');
+        const hostnameSubmitBtn = document.getElementById('hostname-submit');
+        const hostnameError = document.getElementById('hostname-error');
+        const navHostnameBtn = document.getElementById('nav-hostname-btn');
+        const navHostnameDisplay = document.getElementById('nav-hostname-display');
+        const mobileHostnameBtn = document.getElementById('mobile-hostname-btn');
+        const mobileHostnameDisplay = document.getElementById('mobile-hostname-display');
+
+        // Current hostname (default)
+        let currentHostname = localStorage.getItem('ciscoHostname') || '';
+
+        // Hostname validation regex (letters, numbers, hyphens, no spaces)
+        const hostnameRegex = /^[a-zA-Z][a-zA-Z0-9-]{0,62}$/;
+
+        // Function to validate hostname
+        function isValidHostname(hostname) {
+            return hostnameRegex.test(hostname) && hostname.length > 0;
+        }
+
+        // Function to update all hostname displays
+        function updateHostnameDisplays(hostname) {
+            // Update terminal command (specific IDs)
+            const hostnameCmdValue = document.getElementById('hostname-cmd-value');
+            const hostnamePromptValue = document.getElementById('hostname-prompt-value');
+
+            if (hostnameCmdValue) hostnameCmdValue.textContent = hostname;
+            if (hostnamePromptValue) hostnamePromptValue.textContent = hostname;
+
+            // Update ALL dynamic hostname elements across the page
+            document.querySelectorAll('.hostname-dynamic').forEach(el => {
+                el.textContent = hostname;
+            });
+
+            // Update navbar buttons
+            if (navHostnameDisplay) navHostnameDisplay.textContent = hostname;
+            if (mobileHostnameDisplay) mobileHostnameDisplay.textContent = hostname;
+
+            // Store in localStorage
+            localStorage.setItem('ciscoHostname', hostname);
+            currentHostname = hostname;
+        }
+
+        // Function to copy hostname command
+        function copyHostnameCommand(event) {
+            const command = `hostname ${currentHostname}`;
+            copyText(command, event);
+        }
+
+        // Make it available globally
+        window.copyHostnameCommand = copyHostnameCommand;
+
+        // Function to open modal
+        function openHostnameModal() {
+            hostnameModal.classList.add('active');
+            hostnameInput.value = currentHostname;
+            hostnameInput.focus();
+            hostnameError.classList.remove('show');
+            hostnameInput.classList.remove('error');
+        }
+
+        // Function to close modal (only if valid input)
+        function closeHostnameModal() {
+            hostnameModal.classList.remove('active');
+        }
+
+        // Function to handle hostname submission
+        function submitHostname() {
+            const hostname = hostnameInput.value.trim();
+
+            if (!isValidHostname(hostname)) {
+                hostnameError.classList.add('show');
+                hostnameInput.classList.add('error');
+                hostnameInput.focus();
+                return;
+            }
+
+            // Valid hostname - update displays and close modal
+            updateHostnameDisplays(hostname);
+            closeHostnameModal();
+        }
+
+        // Event Listeners
+        hostnameSubmitBtn.addEventListener('click', submitHostname);
+
+        hostnameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitHostname();
+            }
+        });
+
+        hostnameInput.addEventListener('input', () => {
+            hostnameError.classList.remove('show');
+            hostnameInput.classList.remove('error');
+        });
+
+        // Navbar hostname button click
+        if (navHostnameBtn) {
+            navHostnameBtn.addEventListener('click', openHostnameModal);
+        }
+
+        // Mobile hostname button click
+        if (mobileHostnameBtn) {
+            mobileHostnameBtn.addEventListener('click', openHostnameModal);
+        }
+
+        // Check if hostname is already set in localStorage
+        if (currentHostname) {
+            // Hostname exists - update displays (modal is hidden by default)
+            updateHostnameDisplays(currentHostname);
+        } else {
+            // No hostname - show modal on page load
+            hostnameModal.classList.add('active');
+            hostnameInput.focus();
+        }
     </script>
 </body>
 
