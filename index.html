@@ -1224,7 +1224,8 @@
                                             Select Interfaces
                                         </h3>
                                         <p class="step-description">
-                                            Select the range of ports you want to assign to the VLAN.
+                                            Choose a single port (<code class="font-mono text-xs">fa0/6</code>) or a
+                                            range (<code class="font-mono text-xs">range fa0/1-5</code>).
                                         </p>
                                     </div>
                                 </div>
@@ -1239,15 +1240,22 @@
                                         <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
                                         <button onclick="copyText('interface range fa0/1-5', event)" class="copy-btn">
                                             <i class="fa-regular fa-copy"></i>
-                                            <span class="hidden sm:inline">Copy</span>
+                                            <span class="hidden sm:inline">Copy Range</span>
                                         </button>
                                     </div>
                                     <div class="terminal-body">
                                         <div class="w-full">
+                                            <div class="cmd-line mb-3">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config)#</span>
+                                                <span class="cmd-input">interface fa0/6</span>
+                                                <span class="cmd-comment text-gray-500 ml-2">// Single Port</span>
+                                            </div>
                                             <div class="cmd-line">
                                                 <span class="cmd-prompt"><span
                                                         class="hostname-dynamic">Switch</span>(config)#</span>
                                                 <span class="cmd-input">interface range fa0/1 - 5</span>
+                                                <span class="cmd-comment text-gray-500 ml-2">// Multiple Ports</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1448,7 +1456,7 @@
                     </div>
 
                     <!-- Step 2: Verification -->
-                    <div class="group step-reveal">
+                    <div class="mb-8 sm:mb-10 group step-reveal">
                         <div class="step-card">
                             <div class="step-number step-number-purple">2</div>
                             <div class="step-card-inner">
@@ -1501,6 +1509,130 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Verify Port Status -->
+                    <div class="mb-8 sm:mb-10 group step-reveal">
+                        <div class="step-card">
+                            <div class="step-number step-number-purple">3</div>
+                            <div class="step-card-inner">
+                                <div class="step-header">
+                                    <div>
+                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                            <i class="fa-solid fa-ethernet"></i>
+                                            Verify Port Status
+                                        </h3>
+                                        <p class="step-description">
+                                            Check connectivity, VLAN assignment, and administrative state.
+                                        </p>
+                                    </div>
+                                    <span class="step-badge hidden md:inline-flex"
+                                        style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); color: #10b981; border-color: rgba(16, 185, 129, 0.2);">
+                                        Status
+                                    </span>
+                                </div>
+
+                                <div class="terminal-window">
+                                    <div class="terminal-header">
+                                        <div class="traffic-lights">
+                                            <div class="dot dot-red"></div>
+                                            <div class="dot dot-yellow"></div>
+                                            <div class="dot dot-green"></div>
+                                        </div>
+                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                        <button onclick="copyText('show interfaces status', event)" class="copy-btn">
+                                            <i class="fa-regular fa-copy"></i>
+                                            <span class="hidden sm:inline">Copy</span>
+                                        </button>
+                                    </div>
+                                    <div class="terminal-body">
+                                        <div class="w-full">
+                                            <div class="cmd-line">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>#</span>
+                                                <span class="cmd-input">show interfaces status</span>
+                                            </div>
+                                            <div
+                                                class="mt-2 text-gray-500 text-sm font-mono leading-relaxed opacity-80 whitespace-pre">
+                                                Port Name Status Vlan Duplex Speed
+                                                Fa0/1 connected 10 a-full a-100
+                                                Fa0/2 notconnect 10 auto auto
+                                                Fa0/6 disabled 1 auto auto
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Restore & Unshutdown -->
+                    <div class="group step-reveal">
+                        <div class="step-card">
+                            <div class="step-number step-number-purple">4</div>
+                            <div class="step-card-inner">
+                                <div class="step-header">
+                                    <div>
+                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                            <i class="fa-solid fa-bolt"></i>
+                                            Restore & Unshutdown
+                                        </h3>
+                                        <p class="step-description">
+                                            Fix "shutdown" issues. If a VLAN or Port is <span
+                                                class="text-red-400">administratively down</span>, enable it.
+                                        </p>
+                                    </div>
+                                    <span class="step-badge hidden md:inline-flex"
+                                        style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
+                                        Fix
+                                    </span>
+                                </div>
+
+                                <div class="terminal-window">
+                                    <div class="terminal-header">
+                                        <div class="traffic-lights">
+                                            <div class="dot dot-red"></div>
+                                            <div class="dot dot-yellow"></div>
+                                            <div class="dot dot-green"></div>
+                                        </div>
+                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                        <button onclick="copyText('no shutdown', event)" class="copy-btn">
+                                            <i class="fa-regular fa-copy"></i>
+                                            <span class="hidden sm:inline">Copy</span>
+                                        </button>
+                                    </div>
+                                    <div class="terminal-body">
+                                        <div class="w-full">
+                                            <div class="cmd-line mb-2">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config)#</span>
+                                                <span class="cmd-input">interface vlan 10</span>
+                                                <span class="cmd-comment text-gray-500 ml-2">// Or interface
+                                                    fa0/1</span>
+                                            </div>
+                                            <div class="cmd-line">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config-if)#</span>
+                                                <span class="cmd-input">no shutdown</span>
+                                            </div>
+                                            <div class="cmd-line mt-2 text-emerald-400 italic">
+                                                <span class="cmd-output">%LINK-3-UPDOWN: Interface Vlan10, changed state
+                                                    to up</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-tip step-tip-green">
+                                    <div class="step-tip-icon">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                    <p class="step-tip-text">
+                                        <strong>Fix:</strong> This resolves the "shutdown of VLAN is not working" issue
+                                        where the interface remains down.
+                                    </p>
                                 </div>
                             </div>
                         </div>
