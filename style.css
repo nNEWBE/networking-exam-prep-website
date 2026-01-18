@@ -706,7 +706,6 @@
         }
 
         /* Premium Scroll Reveal Animations */
-        /* Premium Scroll Reveal Animations */
         /* Scroll Reveal and Step Reveal Animations removed for performance */
         .reveal {
             opacity: 1;
@@ -1081,7 +1080,6 @@
                 font-size: 0.7rem;
             }
 
-            /* Reduce header vertical padding */
             header {
                 padding-top: 100px !important;
                 padding-bottom: 48px !important;
