@@ -707,45 +707,15 @@
 
         /* Premium Scroll Reveal Animations */
         /* Premium Scroll Reveal Animations */
+        /* Scroll Reveal and Step Reveal Animations removed for performance */
         .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity;
-        }
-
-        .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
         }
 
-        /* Staggered Step Animations */
         .step-reveal {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity;
-        }
-
-        .step-reveal.active {
             opacity: 1;
-            transform: translateX(0);
-        }
-
-        .step-reveal:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-
-        .step-reveal:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-
-        .step-reveal:nth-child(3) {
-            transition-delay: 0.3s;
-        }
-
-        .step-reveal:nth-child(4) {
-            transition-delay: 0.4s;
+            transform: none;
         }
 
         /* Nav Link Active State */
@@ -1221,18 +1191,7 @@
         /* ========================================
            TAB NAVIGATION STYLES
         ======================================== */
-        /* Dynamic Step Colors */
-        .step-number-purple {
-            background: rgba(168, 85, 247, 0.1);
-            color: #a855f7;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-        }
 
-        .step-number-blue {
-            background: rgba(0, 188, 235, 0.1);
-            color: #00bceb;
-            border: 1px solid rgba(0, 188, 235, 0.2);
-        }
 
         .tab-btn {
             position: relative;
@@ -1477,3 +1436,9 @@
             background: rgba(0, 0, 0, 0.05);
             color: #111827;
         }
+/* FORCE OPAQUE BACKGROUNDS FOR STEP NUMBERS */
+.step-number-blue { background: linear-gradient(135deg, #00d4ff 0%, #0077be 100%) !important; }
+.step-number-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; }
+.step-number-purple { background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%) !important; }
+.step-number-orange { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important; }
+.step-number-pink { background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important; }
