@@ -1057,22 +1057,23 @@
                 font-size: 9px;
             }
 
-            /* Keep buttons side by side and compact */
+            /* Side-by-side buttons for mobile */
             header>div:last-of-type {
                 flex-direction: row !important;
-                gap: 8px;
-                padding-left: 12px;
-                padding-right: 12px;
+                gap: 12px;
+                padding-left: 16px;
+                padding-right: 16px;
+                align-items: center;
             }
 
             .btn-primary,
             .btn-secondary {
                 width: auto;
                 flex: 1;
-                padding: 7px 5px;
-                font-size: 0.8rem;
-                border-radius: 20px;
-                gap: 6px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                justify-content: center;
+                border-radius: 12px;
             }
 
             .btn-primary i,
@@ -1436,9 +1437,79 @@
             background: rgba(0, 0, 0, 0.05);
             color: #111827;
         }
-/* FORCE OPAQUE BACKGROUNDS FOR STEP NUMBERS */
-.step-number-blue { background: linear-gradient(135deg, #00d4ff 0%, #0077be 100%) !important; }
-.step-number-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; }
-.step-number-purple { background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%) !important; }
-.step-number-orange { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important; }
-.step-number-pink { background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important; }
+
+        /* FORCE OPAQUE BACKGROUNDS FOR STEP NUMBERS */
+        .step-number-blue {
+            background: linear-gradient(135deg, #00d4ff 0%, #0077be 100%) !important;
+        }
+
+        .step-number-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        }
+
+        .step-number-purple {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%) !important;
+        }
+
+        .step-number-orange {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+        }
+
+        .step-number-pink {
+            background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important;
+        }
+
+        /* ========================================
+   TAB NAVIGATION UPDATES
+======================================== */
+        .tab-btn {
+            justify-content: center;
+        }
+
+        .tab-container {
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Mobile Segmented Control Style */
+        @media (max-width: 640px) {
+            .tab-container {
+                gap: 4px;
+                flex-wrap: nowrap;
+                background: rgba(15, 23, 42, 0.6);
+                padding: 4px;
+                border-radius: 14px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .tab-btn {
+                flex: 1;
+                padding: 10px 8px;
+                font-size: 0.85rem;
+                border: none !important;
+                background: transparent !important;
+                border-radius: 10px;
+                transform: none !important;
+                white-space: nowrap;
+            }
+
+            .tab-btn i {
+                font-size: 0.8rem;
+            }
+
+            .tab-btn:hover {
+                background: rgba(255, 255, 255, 0.05) !important;
+                color: inherit;
+            }
+
+            .tab-btn.active {
+                background: rgba(0, 188, 235, 0.15) !important;
+                color: #00bceb !important;
+                box-shadow: none !important;
+            }
+
+            .tab-btn-vlan.active {
+                background: rgba(244, 63, 94, 0.15) !important;
+                color: #f43f5e !important;
+            }
+        }
