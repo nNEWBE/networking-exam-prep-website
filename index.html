@@ -152,9 +152,17 @@
                         class="nav-link nav-group-login px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
                         <i class="fa-solid fa-shield-halved mr-2 text-xs opacity-70"></i>Security
                     </a>
+                    <a href="#encryption"
+                        class="nav-link nav-group-login px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-user-secret mr-2 text-xs opacity-70"></i>Encryption
+                    </a>
                     <a href="#verification"
                         class="nav-link nav-group-login px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
                         <i class="fa-solid fa-check-double mr-2 text-xs opacity-70"></i>Verification
+                    </a>
+                    <a href="#login-summary"
+                        class="nav-link nav-group-login px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-scroll mr-2 text-xs opacity-70"></i>Summary
                     </a>
                     <a href="#vlan-creation"
                         class="nav-link nav-group-vlan hidden-force px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
@@ -168,6 +176,38 @@
                         class="nav-link nav-group-vlan hidden-force px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
                         <i class="fa-solid fa-list-check mr-2 text-xs opacity-70"></i>Verify
                     </a>
+                    <a href="#vlan-shutdown"
+                        class="nav-link nav-group-vlan hidden-force px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-power-off mr-2 text-xs opacity-70"></i>Shutdown
+                    </a>
+                    <a href="#vlan-summary"
+                        class="nav-link nav-group-vlan hidden-force px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
+                        <i class="fa-solid fa-scroll mr-2 text-xs opacity-70"></i>Summary
+                    </a>
+
+                    <!-- Steps Filter Dropdown -->
+                    <div class="relative ml-2" id="steps-filter-container">
+                        <button id="steps-filter-btn"
+                            class="px-4 py-2 rounded-xl text-sm font-semibold border border-gray-300 dark:border-gray-600 hover:border-cisco-blue hover:text-cisco-blue transition-all duration-300 flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-xs"></i>
+                            <span class="hidden sm:inline">Steps</span>
+                            <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200"
+                                id="steps-filter-arrow"></i>
+                        </button>
+                        <div id="steps-filter-dropdown"
+                            class="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 hidden overflow-hidden">
+                            <div
+                                class="p-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Toggle Steps</span>
+                                <button id="steps-select-all" class="text-xs text-cisco-blue hover:underline">Select
+                                    All</button>
+                            </div>
+                            <div id="steps-filter-list" class="max-h-64 overflow-y-auto p-2">
+                                <!-- Steps will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
                     <button id="nav-hostname-btn"
                         class="ml-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center gap-2">
                         <i class="fa-solid fa-server text-xs"></i>
@@ -200,9 +240,17 @@
                     class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
                     <i class="fa-solid fa-shield-halved text-sm opacity-60"></i>Security
                 </a>
+                <a href="#encryption"
+                    class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-user-secret text-sm opacity-60"></i>Encryption
+                </a>
                 <a href="#verification"
                     class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
                     <i class="fa-solid fa-check-double text-sm opacity-60"></i>Verification
+                </a>
+                <a href="#login-summary"
+                    class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-scroll text-sm opacity-60"></i>Summary
                 </a>
                 <a href="#vlan-creation"
                     class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
@@ -215,6 +263,14 @@
                 <a href="#vlan-verification"
                     class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
                     <i class="fa-solid fa-list-check text-sm opacity-60"></i>Verify
+                </a>
+                <a href="#vlan-shutdown"
+                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-power-off text-sm opacity-60"></i>Shutdown
+                </a>
+                <a href="#vlan-summary"
+                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                    <i class="fa-solid fa-scroll text-sm opacity-60"></i>Summary
                 </a>
                 <button id="mobile-hostname-btn"
                     class="w-full mt-2 px-4 py-3.5 rounded-xl text-base font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center justify-center gap-3">
@@ -537,10 +593,9 @@
                     <div class="min-w-0">
                         <h2
                             class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent mb-0.5 sm:mb-1">
-                            Console Security</h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">Locking
-                            down
-                            physical access to the device</p>
+                            User Mode Security</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">Securing
+                            console access to the device</p>
                     </div>
                 </div>
 
@@ -723,7 +778,7 @@
             </section>
 
             <!-- GROUP 3: Enable Secret -->
-            <section class="scroll-mt-24 sm:scroll-mt-32 mb-24 sm:mb-32">
+            <section id="privileged" class="scroll-mt-24 sm:scroll-mt-32 mb-24 sm:mb-32">
                 <!-- Section Header -->
                 <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
                     <div class="relative flex-shrink-0">
@@ -807,32 +862,57 @@
                                         instead of <code
                                             class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-gray-400 font-mono text-xs">enable password</code>
                                         for MD5 encryption!
-                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+            </section>
 
-                    <!-- Step 2 -->
-                    <div class="group step-reveal">
+            <!-- GROUP 4: Password Encryption -->
+            <section id="encryption" class="scroll-mt-24 sm:scroll-mt-32 section-spy mb-24 sm:mb-32">
+                <!-- Section Header -->
+                <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
+                    <div class="relative flex-shrink-0">
+                        <div class="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
+                            <div
+                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-400 to-violet-500 blur-lg opacity-40">
+                            </div>
+                            <div
+                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-purple-400 via-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                                <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">04</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="min-w-0">
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent mb-0.5 sm:mb-1">
+                            Password Encryption</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">
+                            Encrypt plain text passwords in configuration</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                    style="--glow-color: #a855f7;">
+
+                    <!-- Step 1: Enable Encryption -->
+                    <div class="mb-8 sm:mb-10 group step-reveal">
                         <div class="step-card">
-                            <div class="step-number step-number-orange">2</div>
+                            <div class="step-number step-number-purple">1</div>
                             <div class="step-card-inner">
                                 <div class="step-header">
                                     <div>
-                                        <h3 class="step-title" style="--step-icon-color: #f97316;">
+                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
                                             <i class="fa-solid fa-user-secret"></i>
-                                            Encrypt All Passwords
+                                            Enable Password Encryption
                                         </h3>
                                         <p class="step-description">
                                             Applies weak encryption (Type 7) to all current and future plain text
-                                            passwords
-                                            (like
-                                            console line password) to prevent shoulder surfing.
+                                            passwords (like console line password) to prevent shoulder surfing.
                                         </p>
                                     </div>
                                     <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); color: #f97316; border-color: rgba(249, 115, 22, 0.2);">
+                                        style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
                                         Security
                                     </span>
                                 </div>
@@ -860,16 +940,73 @@
                                     </div>
                                 </div>
 
-                                <div class="step-tip step-tip-orange">
+                                <div class="step-tip step-tip-purple mt-4">
                                     <div class="step-tip-icon">
                                         <i class="fa-solid fa-shield-cat"></i>
                                     </div>
                                     <p class="step-tip-text">
                                         <strong>Note:</strong> This encryption is easily crackable but good for
-                                        preventing
-                                        casual viewing. Use <code
-                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-orange-400 font-mono text-xs">enable secret</code>
+                                        preventing casual viewing. Use <code
+                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-purple-400 font-mono text-xs">enable secret</code>
                                         for real security.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Disable Encryption -->
+                    <div class="group step-reveal">
+                        <div class="step-card">
+                            <div class="step-number step-number-purple">2</div>
+                            <div class="step-card-inner">
+                                <div class="step-header">
+                                    <div>
+                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                            <i class="fa-solid fa-unlock"></i>
+                                            Disable Password Encryption
+                                        </h3>
+                                        <p class="step-description">
+                                            Stops encrypting new passwords. Already encrypted passwords remain
+                                            encrypted.
+                                        </p>
+                                    </div>
+                                    <span class="step-badge hidden md:inline-flex"
+                                        style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
+                                        Undo
+                                    </span>
+                                </div>
+
+                                <div class="terminal-window">
+                                    <div class="terminal-header">
+                                        <div class="traffic-lights">
+                                            <div class="dot dot-red"></div>
+                                            <div class="dot dot-yellow"></div>
+                                            <div class="dot dot-green"></div>
+                                        </div>
+                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                        <button onclick="copyText('no service password-encryption', event)"
+                                            class="copy-btn">
+                                            <i class="fa-regular fa-copy"></i>
+                                            <span class="hidden sm:inline">Copy</span>
+                                        </button>
+                                    </div>
+                                    <div class="terminal-body">
+                                        <div class="cmd-line">
+                                            <span class="cmd-prompt"><span
+                                                    class="hostname-dynamic">R1</span>(config)#</span>
+                                            <span class="cmd-input">no service password-encryption</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step-tip step-tip-blue mt-4">
+                                    <div class="step-tip-icon">
+                                        <i class="fa-solid fa-info"></i>
+                                    </div>
+                                    <p class="step-tip-text">
+                                        <strong>Note:</strong> Previously encrypted passwords will NOT be decrypted.
+                                        Only new passwords will be stored in plain text.
                                     </p>
                                 </div>
                             </div>
@@ -878,7 +1015,7 @@
                 </div>
             </section>
 
-            <!-- GROUP 4: Verification -->
+            <!-- GROUP 5: Verification -->
             <section id="verification" class="scroll-mt-24 sm:scroll-mt-32 section-spy">
                 <!-- Section Header -->
                 <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
@@ -887,12 +1024,12 @@
                         <div class="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
 
                             <div
-                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-400 to-violet-500 blur-lg opacity-40">
+                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 blur-lg opacity-40">
                             </div>
 
                             <div
-                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-purple-400 via-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                                <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">04</span>
+                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-pink-400 via-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
+                                <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">05</span>
                             </div>
                         </div>
                     </div>
@@ -1050,6 +1187,88 @@
                                         for next line.
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOGIN COMMANDS SUMMARY -->
+            <section id="login-summary" class="scroll-mt-24 sm:scroll-mt-32 section-spy mt-24 sm:mt-32">
+                <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
+                    <div class="relative flex-shrink-0">
+                        <div class="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
+                            <div
+                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 blur-lg opacity-40">
+                            </div>
+                            <div
+                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                                <i class="fa-solid fa-scroll text-white text-lg sm:text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="min-w-0">
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent mb-0.5 sm:mb-1">
+                            Commands Summary</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">All
+                            Login Management commands in one place</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                    style="--glow-color: #3b82f6;">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="traffic-lights">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <span class="terminal-title hidden sm:block">Login Management - Complete Commands</span>
+                            <button
+                                onclick="copyText('enable\nconfigure terminal\nhostname [YOUR-HOSTNAME]\nline console 0\npassword [YOUR-PASSWORD]\nlogin\nexit\nenable secret [YOUR-SECRET]\nservice password-encryption\nend\nshow running-config', event)"
+                                class="copy-btn">
+                                <i class="fa-regular fa-copy"></i>
+                                <span class="hidden sm:inline">Copy All</span>
+                            </button>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="w-full space-y-1 text-sm">
+                                <div class="text-gray-500">! ===== DEVICE IDENTITY =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt">Switch></span> <span
+                                        class="cmd-input">enable</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt">Switch#</span> <span
+                                        class="cmd-input">configure terminal</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt">Switch(config)#</span> <span
+                                        class="cmd-input">hostname <span class="hostname-dynamic">R1</span></span></div>
+                                <div class="mt-3 text-gray-500">! ===== CONSOLE SECURITY =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config)#</span> <span
+                                        class="cmd-input">line console 0</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config-line)#</span> <span
+                                        class="cmd-input">password cisco123</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config-line)#</span> <span
+                                        class="cmd-input">login</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config-line)#</span> <span
+                                        class="cmd-input">exit</span></div>
+                                <div class="mt-3 text-gray-500">! ===== PRIVILEGED MODE SECURITY =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config)#</span> <span
+                                        class="cmd-input">enable secret class123</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config)#</span> <span
+                                        class="cmd-input">service password-encryption</span></div>
+                                <div class="mt-3 text-gray-500">! ===== VERIFICATION =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config)#</span> <span
+                                        class="cmd-input">end</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>#</span> <span class="cmd-input">show
+                                        running-config</span></div>
                             </div>
                         </div>
                     </div>
@@ -1239,10 +1458,17 @@
                                             <div class="dot dot-green"></div>
                                         </div>
                                         <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
-                                        <button onclick="copyText('interface range fa0/1-5', event)" class="copy-btn">
-                                            <i class="fa-regular fa-copy"></i>
-                                            <span class="hidden sm:inline">Copy Range</span>
-                                        </button>
+                                        <div class="flex gap-2">
+                                            <button onclick="copyText('interface fa0/6', event)" class="copy-btn">
+                                                <i class="fa-regular fa-copy"></i>
+                                                <span class="hidden sm:inline">Single</span>
+                                            </button>
+                                            <button onclick="copyText('interface range fa0/1-5', event)"
+                                                class="copy-btn">
+                                                <i class="fa-regular fa-copy"></i>
+                                                <span class="hidden sm:inline">Range</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="terminal-body">
                                         <div class="w-full">
@@ -1369,7 +1595,241 @@
                 </div>
             </section>
 
-            <!-- GROUP 4: VLAN Verification (Purple) -->
+            <!-- GROUP 4: VLAN Shutdown (Orange) -->
+            <section id="vlan-shutdown" class="scroll-mt-24 sm:scroll-mt-32 section-spy">
+                <!-- Section Header -->
+                <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
+                    <div class="relative flex-shrink-0">
+                        <div class="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
+                            <div
+                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-400 to-amber-500 blur-lg opacity-40">
+                            </div>
+                            <div
+                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-orange-400 via-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/30">
+                                <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">04</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="min-w-0">
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent mb-0.5 sm:mb-1">
+                            VLAN Shutdown</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">
+                            Administratively disable VLAN interfaces</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                    style="--glow-color: #f97316;">
+
+                    <!-- Step 1: Shutdown VLAN -->
+                    <div class="mb-8 sm:mb-10 group step-reveal">
+                        <div class="step-card">
+                            <div class="step-number step-number-orange">1</div>
+                            <div class="step-card-inner">
+                                <div class="step-header">
+                                    <div>
+                                        <h3 class="step-title" style="--step-icon-color: #f97316;">
+                                            <i class="fa-solid fa-power-off"></i>
+                                            Shutdown VLAN Interface
+                                        </h3>
+                                        <p class="step-description">
+                                            Administratively shutdown a VLAN to disable all traffic on it without
+                                            deleting it.
+                                        </p>
+                                    </div>
+                                    <span class="step-badge hidden md:inline-flex"
+                                        style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); color: #f97316; border-color: rgba(249, 115, 22, 0.2);">
+                                        Management
+                                    </span>
+                                </div>
+
+                                <div class="terminal-window">
+                                    <div class="terminal-header">
+                                        <div class="traffic-lights">
+                                            <div class="dot dot-red"></div>
+                                            <div class="dot dot-yellow"></div>
+                                            <div class="dot dot-green"></div>
+                                        </div>
+                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                        <button
+                                            onclick="copyText('configure terminal\ninterface vlan 10\nshutdown', event)"
+                                            class="copy-btn">
+                                            <i class="fa-regular fa-copy"></i>
+                                            <span class="hidden sm:inline">Copy</span>
+                                        </button>
+                                    </div>
+                                    <div class="terminal-body">
+                                        <div class="w-full">
+                                            <div class="cmd-line">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>#</span>
+                                                <span class="cmd-input">configure terminal</span>
+                                            </div>
+                                            <div class="cmd-line mt-1">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config)#</span>
+                                                <span class="cmd-input">interface vlan 10</span>
+                                            </div>
+                                            <div class="cmd-line mt-1">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config-if)#</span>
+                                                <span class="cmd-input">shutdown</span>
+                                            </div>
+                                            <div class="cmd-line mt-2 text-gray-400 italic">
+                                                <span class="cmd-output">%LINK-5-CHANGED: Interface Vlan10, changed
+                                                    state to
+                                                    administratively down</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Verify Shutdown -->
+                    <div class="mb-8 sm:mb-10 group step-reveal">
+                        <div class="step-card">
+                            <div class="step-number step-number-orange">2</div>
+                            <div class="step-card-inner">
+                                <div class="step-header">
+                                    <div>
+                                        <h3 class="step-title" style="--step-icon-color: #f97316;">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            Verify Shutdown Status
+                                        </h3>
+                                        <p class="step-description">
+                                            Check if the VLAN interface is administratively down.
+                                        </p>
+                                    </div>
+                                    <span class="step-badge hidden md:inline-flex"
+                                        style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); color: #f97316; border-color: rgba(249, 115, 22, 0.2);">
+                                        Verify
+                                    </span>
+                                </div>
+
+                                <div class="terminal-window">
+                                    <div class="terminal-header">
+                                        <div class="traffic-lights">
+                                            <div class="dot dot-red"></div>
+                                            <div class="dot dot-yellow"></div>
+                                            <div class="dot dot-green"></div>
+                                        </div>
+                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                        <button onclick="copyText('show ip interface brief', event)" class="copy-btn">
+                                            <i class="fa-regular fa-copy"></i>
+                                            <span class="hidden sm:inline">Copy</span>
+                                        </button>
+                                    </div>
+                                    <div class="terminal-body">
+                                        <div class="w-full">
+                                            <div class="cmd-line">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>#</span>
+                                                <span class="cmd-input">show ip interface brief</span>
+                                            </div>
+                                            <div
+                                                class="mt-2 text-gray-500 text-sm font-mono leading-relaxed opacity-80">
+                                                <div>
+                                                    Interface&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP-Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK?
+                                                    Method
+                                                    Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protocol
+                                                </div>
+                                                <div>
+                                                    Vlan1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unassigned&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YES
+                                                    unset&nbsp;&nbsp;up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up
+                                                </div>
+                                                <div>
+                                                    Vlan10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unassigned&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YES
+                                                    unset&nbsp;&nbsp;<span class="text-red-400">administratively
+                                                        down</span> down</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Restore (No Shutdown) -->
+                    <div class="group step-reveal">
+                        <div class="step-card">
+                            <div class="step-number step-number-orange">3</div>
+                            <div class="step-card-inner">
+                                <div class="step-header">
+                                    <div>
+                                        <h3 class="step-title" style="--step-icon-color: #f97316;">
+                                            <i class="fa-solid fa-bolt"></i>
+                                            Restore VLAN (No Shutdown)
+                                        </h3>
+                                        <p class="step-description">
+                                            Re-enable the VLAN interface if it was previously shut down.
+                                        </p>
+                                    </div>
+                                    <span class="step-badge hidden md:inline-flex"
+                                        style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); color: #10b981; border-color: rgba(16, 185, 129, 0.2);">
+                                        Restore
+                                    </span>
+                                </div>
+
+                                <div class="terminal-window">
+                                    <div class="terminal-header">
+                                        <div class="traffic-lights">
+                                            <div class="dot dot-red"></div>
+                                            <div class="dot dot-yellow"></div>
+                                            <div class="dot dot-green"></div>
+                                        </div>
+                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
+                                        <button
+                                            onclick="copyText('configure terminal\ninterface vlan 10\nno shutdown', event)"
+                                            class="copy-btn">
+                                            <i class="fa-regular fa-copy"></i>
+                                            <span class="hidden sm:inline">Copy</span>
+                                        </button>
+                                    </div>
+                                    <div class="terminal-body">
+                                        <div class="w-full">
+                                            <div class="cmd-line">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>#</span>
+                                                <span class="cmd-input">configure terminal</span>
+                                            </div>
+                                            <div class="cmd-line mt-1">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config)#</span>
+                                                <span class="cmd-input">interface vlan 10</span>
+                                            </div>
+                                            <div class="cmd-line mt-1">
+                                                <span class="cmd-prompt"><span
+                                                        class="hostname-dynamic">Switch</span>(config-if)#</span>
+                                                <span class="cmd-input">no shutdown</span>
+                                            </div>
+                                            <div class="cmd-line mt-2 text-emerald-400 italic">
+                                                <span class="cmd-output">%LINK-3-UPDOWN: Interface Vlan10, changed state
+                                                    to up</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step-tip step-tip-green mt-4">
+                                    <div class="step-tip-icon">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                    <p class="step-tip-text">
+                                        <strong>Tip:</strong> Use <code
+                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-green-400 font-mono text-xs">show ip interface brief</code>
+                                        again to verify the VLAN is back up.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GROUP 5: VLAN Verification (Purple) -->
             <section id="vlan-verification" class="scroll-mt-24 sm:scroll-mt-32 section-spy">
                 <!-- Section Header -->
                 <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
@@ -1380,7 +1840,7 @@
                             </div>
                             <div
                                 class="relative w-full h-full rounded-2xl bg-gradient-to-br from-purple-400 via-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                                <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">04</span>
+                                <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">05</span>
                             </div>
                         </div>
                     </div>
@@ -1404,66 +1864,6 @@
                                 <div class="step-header">
                                     <div>
                                         <h3 class="step-title" style="--step-icon-color: #a855f7;">
-                                            <i class="fa-solid fa-power-off"></i>
-                                            Shutdown VLAN
-                                        </h3>
-                                        <p class="step-description">
-                                            Administratively shutdown a VLAN to disable all traffic on it without
-                                            deleting
-                                            it.
-                                        </p>
-                                    </div>
-                                    <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(244, 63, 94, 0.05) 100%); color: #f43f5e; border-color: rgba(244, 63, 94, 0.2);">
-                                        Management
-                                    </span>
-                                </div>
-
-                                <div class="terminal-window">
-                                    <div class="terminal-header">
-                                        <div class="traffic-lights">
-                                            <div class="dot dot-red"></div>
-                                            <div class="dot dot-yellow"></div>
-                                            <div class="dot dot-green"></div>
-                                        </div>
-                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
-                                        <button onclick="copyText('vlan 10\nshutdown', event)" class="copy-btn">
-                                            <i class="fa-regular fa-copy"></i>
-                                            <span class="hidden sm:inline">Copy</span>
-                                        </button>
-                                    </div>
-                                    <div class="terminal-body">
-                                        <div class="w-full">
-                                            <div class="cmd-line">
-                                                <span class="cmd-prompt"><span
-                                                        class="hostname-dynamic">Switch</span>(config)#</span>
-                                                <span class="cmd-input">vlan 10</span>
-                                            </div>
-                                            <div class="cmd-line mt-1">
-                                                <span class="cmd-prompt"><span
-                                                        class="hostname-dynamic">Switch</span>(config-vlan)#</span>
-                                                <span class="cmd-input">shutdown</span>
-                                            </div>
-                                            <div class="cmd-line mt-2 text-gray-400 italic">
-                                                <span class="cmd-output">%LINK-5-CHANGED: Interface Vlan10, changed
-                                                    state to
-                                                    administratively down</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="mb-8 sm:mb-10 group step-reveal">
-                        <div class="step-card">
-                            <div class="step-number step-number-purple">2</div>
-                            <div class="step-card-inner">
-                                <div class="step-header">
-                                    <div>
-                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
                                             <i class="fa-solid fa-list-check"></i>
                                             Verify VLANs
                                         </h3>
@@ -1472,7 +1872,7 @@
                                         </p>
                                     </div>
                                     <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(244, 63, 94, 0.05) 100%); color: #f43f5e; border-color: rgba(244, 63, 94, 0.2);">
+                                        style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
                                         Verify
                                     </span>
                                 </div>
@@ -1498,15 +1898,25 @@
                                                 <span class="cmd-input">show vlan brief</span>
                                             </div>
                                             <div
-                                                class="mt-2 text-gray-500 text-sm font-mono leading-relaxed opacity-80 whitespace-pre">
-                                                VLAN Name Status Ports
-                                                ---- -------------------------------- ---------
-                                                -------------------------------
-                                                1 default active Fa0/6, Fa0/7, Fa0/8...
-                                                10 SALES active Fa0/1, Fa0/2, Fa0/3, Fa0/4
-                                                Fa0/5
-                                                1002 fddi-default act/unsup
-                                                1003 token-ring-default act/unsup
+                                                class="mt-2 text-gray-500 text-sm font-mono leading-relaxed opacity-80">
+                                                <div>VLAN
+                                                    Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp;&nbsp;Ports
+                                                </div>
+                                                <div>
+                                                    ----&nbsp;--------------------------------&nbsp;---------&nbsp;-------------------------------
+                                                </div>
+                                                <div>
+                                                    1&nbsp;&nbsp;&nbsp;&nbsp;default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active&nbsp;&nbsp;&nbsp;&nbsp;Fa0/6,
+                                                    Fa0/7, Fa0/8...</div>
+                                                <div>
+                                                    10&nbsp;&nbsp;&nbsp;SALES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active&nbsp;&nbsp;&nbsp;&nbsp;Fa0/1,
+                                                    Fa0/2, Fa0/3, Fa0/4, Fa0/5</div>
+                                                <div>
+                                                    1002&nbsp;fddi-default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;act/unsup
+                                                </div>
+                                                <div>
+                                                    1003&nbsp;token-ring-default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;act/unsup
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1515,10 +1925,10 @@
                         </div>
                     </div>
 
-                    <!-- Step 3 -->
-                    <div class="mb-8 sm:mb-10 group step-reveal">
+                    <!-- Step 2 -->
+                    <div class="group step-reveal">
                         <div class="step-card">
-                            <div class="step-number step-number-purple">3</div>
+                            <div class="step-number step-number-purple">2</div>
                             <div class="step-card-inner">
                                 <div class="step-header">
                                     <div>
@@ -1531,7 +1941,7 @@
                                         </p>
                                     </div>
                                     <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); color: #10b981; border-color: rgba(16, 185, 129, 0.2);">
+                                        style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
                                         Status
                                     </span>
                                 </div>
@@ -1557,11 +1967,19 @@
                                                 <span class="cmd-input">show interfaces status</span>
                                             </div>
                                             <div
-                                                class="mt-2 text-gray-500 text-sm font-mono leading-relaxed opacity-80 whitespace-pre">
-                                                Port Name Status Vlan Duplex Speed
-                                                Fa0/1 connected 10 a-full a-100
-                                                Fa0/2 notconnect 10 auto auto
-                                                Fa0/6 disabled 1 auto auto
+                                                class="mt-2 text-gray-500 text-sm font-mono leading-relaxed opacity-80">
+                                                <div>
+                                                    Port&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vlan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duplex&nbsp;&nbsp;Speed
+                                                </div>
+                                                <div>
+                                                    Fa0/1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connected&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a-full&nbsp;&nbsp;a-100
+                                                </div>
+                                                <div>
+                                                    Fa0/2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notconnect&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto&nbsp;&nbsp;&nbsp;&nbsp;auto
+                                                </div>
+                                                <div>
+                                                    Fa0/6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto&nbsp;&nbsp;&nbsp;&nbsp;auto
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1569,72 +1987,99 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <!-- Step 4 -->
-                    <div class="group step-reveal">
-                        <div class="step-card">
-                            <div class="step-number step-number-purple">4</div>
-                            <div class="step-card-inner">
-                                <div class="step-header">
-                                    <div>
-                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
-                                            <i class="fa-solid fa-bolt"></i>
-                                            Restore & Unshutdown
-                                        </h3>
-                                        <p class="step-description">
-                                            Fix "shutdown" issues. If a VLAN or Port is <span
-                                                class="text-red-400">administratively down</span>, enable it.
-                                        </p>
-                                    </div>
-                                    <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
-                                        Fix
-                                    </span>
-                                </div>
+            <!-- VLAN COMMANDS SUMMARY -->
+            <section id="vlan-summary" class="scroll-mt-24 sm:scroll-mt-32 section-spy mt-24 sm:mt-32">
+                <div class="flex items-center gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-10 md:mb-12 reveal">
+                    <div class="relative flex-shrink-0">
+                        <div class="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
+                            <div
+                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 blur-lg opacity-40">
+                            </div>
+                            <div
+                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-pink-400 via-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
+                                <i class="fa-solid fa-scroll text-white text-lg sm:text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="min-w-0">
+                        <h2
+                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-heading bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent mb-0.5 sm:mb-1">
+                            Commands Summary</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base font-medium">All
+                            VLAN Configuration commands in one place</p>
+                    </div>
+                </div>
 
-                                <div class="terminal-window">
-                                    <div class="terminal-header">
-                                        <div class="traffic-lights">
-                                            <div class="dot dot-red"></div>
-                                            <div class="dot dot-yellow"></div>
-                                            <div class="dot dot-green"></div>
-                                        </div>
-                                        <span class="terminal-title hidden sm:block">Cisco IOS Terminal</span>
-                                        <button onclick="copyText('no shutdown', event)" class="copy-btn">
-                                            <i class="fa-regular fa-copy"></i>
-                                            <span class="hidden sm:inline">Copy</span>
-                                        </button>
-                                    </div>
-                                    <div class="terminal-body">
-                                        <div class="w-full">
-                                            <div class="cmd-line mb-2">
-                                                <span class="cmd-prompt"><span
-                                                        class="hostname-dynamic">Switch</span>(config)#</span>
-                                                <span class="cmd-input">interface vlan 10</span>
-                                                <span class="cmd-comment text-gray-500 ml-2">// Or interface
-                                                    fa0/1</span>
-                                            </div>
-                                            <div class="cmd-line">
-                                                <span class="cmd-prompt"><span
-                                                        class="hostname-dynamic">Switch</span>(config-if)#</span>
-                                                <span class="cmd-input">no shutdown</span>
-                                            </div>
-                                            <div class="cmd-line mt-2 text-emerald-400 italic">
-                                                <span class="cmd-output">%LINK-3-UPDOWN: Interface Vlan10, changed state
-                                                    to up</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="step-tip step-tip-green">
-                                    <div class="step-tip-icon">
-                                        <i class="fa-solid fa-check"></i>
-                                    </div>
-                                    <p class="step-tip-text">
-                                        <strong>Fix:</strong> This resolves the "shutdown of VLAN is not working" issue
-                                        where the interface remains down.
-                                    </p>
-                                </div>
+                <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
+                    style="--glow-color: #f43f5e;">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="traffic-lights">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <span class="terminal-title hidden sm:block">VLAN Configuration - Complete Commands</span>
+                            <button
+                                onclick="copyText('enable\nconfigure terminal\nvlan 10\nname SALES\nexit\ninterface range fa0/1 - 5\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface vlan 10\nshutdown\nexit\nend\nshow vlan brief\nshow interfaces status', event)"
+                                class="copy-btn">
+                                <i class="fa-regular fa-copy"></i>
+                                <span class="hidden sm:inline">Copy All</span>
+                            </button>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="w-full space-y-1 text-sm">
+                                <div class="text-gray-500">! ===== ENTER CONFIG MODE =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt">Switch></span> <span
+                                        class="cmd-input">enable</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt">Switch#</span> <span
+                                        class="cmd-input">configure terminal</span></div>
+                                <div class="mt-3 text-gray-500">! ===== CREATE VLAN =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config)#</span> <span
+                                        class="cmd-input">vlan 10</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-vlan)#</span> <span
+                                        class="cmd-input">name SALES</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-vlan)#</span> <span
+                                        class="cmd-input">exit</span></div>
+                                <div class="mt-3 text-gray-500">! ===== ASSIGN PORTS TO VLAN =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config)#</span> <span
+                                        class="cmd-input">interface range fa0/1 - 5</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if-range)#</span> <span
+                                        class="cmd-input">switchport mode access</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if-range)#</span> <span
+                                        class="cmd-input">switchport access vlan 10</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if-range)#</span> <span
+                                        class="cmd-input">exit</span></div>
+                                <div class="mt-3 text-gray-500">! ===== VLAN SHUTDOWN =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config)#</span> <span
+                                        class="cmd-input">interface vlan 10</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">shutdown</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">exit</span></div>
+                                <div class="mt-3 text-gray-500">! ===== VERIFICATION =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config)#</span> <span
+                                        class="cmd-input">end</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>#</span> <span class="cmd-input">show
+                                        vlan brief</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>#</span> <span class="cmd-input">show
+                                        interfaces status</span></div>
                             </div>
                         </div>
                     </div>
