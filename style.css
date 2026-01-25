@@ -10,6 +10,43 @@
             background-color: #060810;
         }
 
+        /* ============================================
+           SCROLLBAR WITH OUTER GLOW EFFECT
+           Note: Colors are dynamically set via JavaScript
+        ============================================ */
+
+        /* Base scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #060810;
+        }
+
+        /* Scrollbar thumb with outer glow */
+        ::-webkit-scrollbar-thumb {
+            background: #00bceb;
+            border-radius: 10px;
+            box-shadow:
+                0 0 6px 2px rgba(0, 188, 235, 0.6),
+                0 0 12px 4px rgba(0, 188, 235, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00d4ff;
+            box-shadow:
+                0 0 8px 3px rgba(0, 212, 255, 0.7),
+                0 0 16px 6px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Firefox scrollbar support */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #00bceb #060810;
+        }
+
         h1,
         h2,
         h3,
@@ -1678,4 +1715,174 @@
 
         .nav-link-hidden {
             display: none !important;
+        }
+
+        /* Summary command visibility with smooth transition */
+        .summary-hidden {
+            display: none !important;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Summary section command groups transitions */
+        .terminal-body .cmd-line,
+        .terminal-body .text-gray-500 {
+            transition: opacity 0.3s ease, max-height 0.3s ease, margin 0.3s ease;
+        }
+
+        /* ============================================
+           SCROLL TO TOP BUTTON WITH PROGRESS
+        ============================================ */
+
+        .scroll-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: rgba(6, 8, 16, 0.9);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 188, 235, 0.2);
+        }
+
+        .scroll-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-to-top-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow:
+                0 6px 30px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(0, 188, 235, 0.4);
+        }
+
+        .scroll-to-top-btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* Progress Ring */
+        .scroll-progress-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotate(-90deg);
+        }
+
+        .scroll-progress-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 3;
+        }
+
+        .scroll-progress-bar {
+            fill: none;
+            stroke: #00bceb;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 138.23;
+            stroke-dashoffset: 138.23;
+            transition: stroke-dashoffset 0.1s ease;
+            filter: drop-shadow(0 0 4px rgba(0, 188, 235, 0.6));
+        }
+
+        /* Icon */
+        .scroll-top-icon {
+            position: absolute;
+            color: #00bceb;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-to-top-btn:hover .scroll-top-icon {
+            transform: translateY(-2px);
+            color: #00d4ff;
+        }
+
+        /* Percentage Text */
+        .scroll-percentage {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'Fira Code', monospace;
+            color: rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-to-top-btn:hover .scroll-percentage {
+            opacity: 1;
+        }
+
+        /* VLAN Tab variant */
+        body.scrollbar-vlan .scroll-progress-bar {
+            stroke: #f43f5e;
+            filter: drop-shadow(0 0 4px rgba(244, 63, 94, 0.6));
+        }
+
+        body.scrollbar-vlan .scroll-top-icon {
+            color: #f43f5e;
+        }
+
+        body.scrollbar-vlan .scroll-to-top-btn:hover .scroll-top-icon {
+            color: #ff6b8a;
+        }
+
+        body.scrollbar-vlan .scroll-to-top-btn {
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(244, 63, 94, 0.2);
+        }
+
+        body.scrollbar-vlan .scroll-to-top-btn:hover {
+            box-shadow:
+                0 6px 30px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(244, 63, 94, 0.4);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+            .scroll-to-top-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .scroll-progress-ring {
+                width: 45px;
+                height: 45px;
+            }
+
+            .scroll-progress-bg,
+            .scroll-progress-bar {
+                cx: 22.5;
+                cy: 22.5;
+                r: 20;
+            }
+
+            .scroll-progress-bar {
+                stroke-dasharray: 125.66;
+                stroke-dashoffset: 125.66;
+            }
         }

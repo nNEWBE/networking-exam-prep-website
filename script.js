@@ -202,8 +202,64 @@ function switchTab(tabId) {
         el.classList.remove('hidden-force');
     });
 
+    // Update body class for theming (scrollbar + scroll button)
+    document.body.classList.remove('scrollbar-login', 'scrollbar-vlan');
+    document.body.classList.add('scrollbar-' + tabId);
+
+    // Update scrollbar color based on active tab
+    updateScrollbarColor(tabId);
+
     // Update steps filter when tab changes
     populateStepsFilter(tabId);
+}
+
+// ===== Dynamic Scrollbar Color =====
+function updateScrollbarColor(tabId) {
+    // Get or create the dynamic scrollbar style element
+    let scrollbarStyle = document.getElementById('dynamic-scrollbar-style');
+    if (!scrollbarStyle) {
+        scrollbarStyle = document.createElement('style');
+        scrollbarStyle.id = 'dynamic-scrollbar-style';
+        document.head.appendChild(scrollbarStyle);
+    }
+
+    // Define colors for each tab
+    const colors = {
+        login: {
+            main: '#00bceb',
+            hover: '#00d4ff',
+            glow1: 'rgba(0, 188, 235, 0.6)',
+            glow2: 'rgba(0, 188, 235, 0.3)',
+            hoverGlow1: 'rgba(0, 212, 255, 0.7)',
+            hoverGlow2: 'rgba(0, 212, 255, 0.4)'
+        },
+        vlan: {
+            main: '#f43f5e',
+            hover: '#ff6b8a',
+            glow1: 'rgba(244, 63, 94, 0.6)',
+            glow2: 'rgba(244, 63, 94, 0.3)',
+            hoverGlow1: 'rgba(255, 107, 138, 0.7)',
+            hoverGlow2: 'rgba(255, 107, 138, 0.4)'
+        }
+    };
+
+    const c = colors[tabId] || colors.login;
+
+    // Generate scrollbar with outer glow effect
+    scrollbarStyle.textContent = `
+        ::-webkit-scrollbar-thumb {
+            background: ${c.main} !important;
+            border-radius: 10px !important;
+            box-shadow: 0 0 6px 2px ${c.glow1}, 0 0 12px 4px ${c.glow2} !important;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: ${c.hover} !important;
+            box-shadow: 0 0 8px 3px ${c.hoverGlow1}, 0 0 16px 6px ${c.hoverGlow2} !important;
+        }
+        html {
+            scrollbar-color: ${c.main} #060810 !important;
+        }
+    `;
 }
 
 // ============================================
@@ -224,6 +280,51 @@ const stepsConfig = {
         { id: 'vlan-shutdown', name: 'VLAN Shutdown', section: '#vlan-shutdown' },
         { id: 'vlan-verification', name: 'VLAN Verification', section: '#vlan-verification' }
     ]
+};
+
+// Map steps to their summary section identifiers and commands
+// sectionComments is an array of patterns to match against section comment headers
+const summaryCommandsMap = {
+    login: {
+        'login-basics': {
+            sectionComments: ['DEVICE IDENTITY'],
+            commands: ['enable', 'configure terminal', 'hostname R1']
+        },
+        'login-security': {
+            sectionComments: ['USER MODE SECURITY'],
+            commands: ['line console 0', 'password cisco123', 'login', 'exit']
+        },
+        'login-privileged': {
+            sectionComments: ['PRIVILEGED MODE SECURITY'],
+            commands: ['enable secret class123']
+        },
+        'login-encryption': {
+            sectionComments: ['PASSWORD ENCRYPTION'],
+            commands: ['service password-encryption', 'no service password-encryption']
+        },
+        'login-verification': {
+            sectionComments: ['FINAL VERIFICATION'],
+            commands: ['end', 'show running-config']
+        }
+    },
+    vlan: {
+        'vlan-creation': {
+            sectionComments: ['VLAN CREATION'],
+            commands: ['vlan 10', 'name SALES', 'exit']
+        },
+        'vlan-ports': {
+            sectionComments: ['PORT ASSIGNMENT (SINGLE PORT)', 'PORT ASSIGNMENT (RANGE)'],
+            commands: ['interface fa0/6', 'interface range fa0/1 - 5', 'switchport mode access', 'switchport access vlan 10', 'exit']
+        },
+        'vlan-shutdown': {
+            sectionComments: ['VLAN SHUTDOWN', 'VLAN RESTORE'],
+            commands: ['interface vlan 10', 'shutdown', 'exit', 'no shutdown']
+        },
+        'vlan-verification': {
+            sectionComments: ['VLAN VERIFICATION'],
+            commands: ['end', 'show vlan brief', 'show interfaces status', 'show ip interface brief']
+        }
+    }
 };
 
 // Store visibility state
@@ -300,29 +401,115 @@ function toggleStepVisibility(step, visible, tabId) {
         }
     });
 
-    // Update the summary section
     updateSummaryCommands(tabId);
 }
 
-// Update summary commands based on visible steps
 function updateSummaryCommands(tabId) {
     const summaryId = tabId === 'login' ? 'login-summary' : 'vlan-summary';
     const summarySection = document.getElementById(summaryId);
     if (!summarySection) return;
 
-    const terminalBody = summarySection.querySelector('.terminal-body');
+    const terminalBody = summarySection.querySelector('.terminal-body > div');
     if (!terminalBody) return;
 
-    // Collect all visible commands
-    const steps = stepsConfig[tabId] || [];
-    const visibleSteps = steps.filter(step => stepsVisibility[step.id]);
+    const commandsMap = summaryCommandsMap[tabId];
+    if (!commandsMap) return;
 
-    // Update summary visibility based on visible steps
-    const cmdLines = terminalBody.querySelectorAll('.cmd-line');
-    cmdLines.forEach(line => {
-        // Keep all commands visible for now - can add granular control later
-        line.style.display = '';
+    // Helper function to check if text matches any section pattern
+    function matchesSectionPattern(text, patterns) {
+        return patterns.some(pattern => text.includes(pattern));
+    }
+
+    // Get all elements (comments and commands)
+    const allElements = terminalBody.children;
+    let currentStepId = null;
+    let elementsToProcess = [];
+
+    // First pass: identify which elements belong to which step
+    Array.from(allElements).forEach(element => {
+        // Check if this is a section comment (identifies the step)
+        if (element.classList.contains('text-gray-500') && element.textContent.includes('=====')) {
+            // Find which step this comment belongs to
+            for (const [stepId, stepData] of Object.entries(commandsMap)) {
+                if (matchesSectionPattern(element.textContent, stepData.sectionComments)) {
+                    currentStepId = stepId;
+                    elementsToProcess.push({ element, stepId: currentStepId, isComment: true });
+                    break;
+                }
+            }
+        } else if (element.classList.contains('cmd-line') && currentStepId) {
+            elementsToProcess.push({ element, stepId: currentStepId, isComment: false });
+        } else if (element.classList.contains('mt-3') && element.classList.contains('text-gray-500')) {
+            // This is a section divider with comment
+            for (const [stepId, stepData] of Object.entries(commandsMap)) {
+                if (matchesSectionPattern(element.textContent, stepData.sectionComments)) {
+                    currentStepId = stepId;
+                    elementsToProcess.push({ element, stepId: currentStepId, isComment: true });
+                    break;
+                }
+            }
+        }
     });
+
+    // Second pass: show/hide elements based on visibility
+    elementsToProcess.forEach(({ element, stepId }) => {
+        if (stepsVisibility[stepId]) {
+            element.style.display = '';
+            element.classList.remove('summary-hidden');
+        } else {
+            element.style.display = 'none';
+            element.classList.add('summary-hidden');
+        }
+    });
+
+    // Update the Copy All button text
+    updateCopyAllButton(tabId, summarySection);
+}
+
+// Update the Copy All button to only copy visible commands
+function updateCopyAllButton(tabId, summarySection) {
+    const copyBtn = summarySection.querySelector('.copy-btn');
+    if (!copyBtn) return;
+
+    const commandsMap = summaryCommandsMap[tabId];
+    if (!commandsMap) return;
+
+    // Build the commands string from visible steps
+    let allCommands = [];
+
+    // Always include mode entry commands
+    if (tabId === 'login' || tabId === 'vlan') {
+        // These are base commands that appear in DEVICE IDENTITY / ENTER CONFIG MODE
+        if (stepsVisibility['login-basics'] && tabId === 'login') {
+            allCommands.push('enable', 'configure terminal', `hostname ${currentHostname || 'R1'}`);
+        }
+        if (tabId === 'vlan') {
+            // VLAN always needs enable and configure terminal
+            allCommands.push('enable', 'configure terminal');
+        }
+    }
+
+    // Add commands for each visible step
+    const steps = stepsConfig[tabId] || [];
+    steps.forEach(step => {
+        if (stepsVisibility[step.id] && commandsMap[step.id]) {
+            const stepCommands = commandsMap[step.id].commands;
+
+            // Skip basics for login as we already added them
+            if (step.id === 'login-basics') return;
+
+            // Add the commands
+            stepCommands.forEach(cmd => {
+                if (!allCommands.includes(cmd)) {
+                    allCommands.push(cmd);
+                }
+            });
+        }
+    });
+
+    // Create the onclick handler with the new command string
+    const commandString = allCommands.join('\\n');
+    copyBtn.setAttribute('onclick', `copyText('${commandString}', event)`);
 }
 
 // Dropdown toggle
@@ -365,6 +552,53 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Initialize filter for default tab
     populateStepsFilter('login');
+    document.body.classList.add('scrollbar-login');
+    updateScrollbarColor('login');
+    initScrollToTop();
 });
+
+// ============================================
+// SCROLL TO TOP BUTTON WITH PROGRESS
+// ============================================
+
+function initScrollToTop() {
+    const scrollBtn = document.getElementById('scroll-to-top');
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    const percentageText = document.querySelector('.scroll-percentage');
+
+    if (!scrollBtn || !progressBar) return;
+
+    const circumference = 2 * Math.PI * 22;
+    window.addEventListener('scroll', () => {
+        updateScrollProgress();
+    });
+
+    function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+        const offset = circumference - (scrollPercent / 100) * circumference;
+        progressBar.style.strokeDashoffset = offset;
+
+        if (percentageText) {
+            percentageText.textContent = Math.round(scrollPercent) + '%';
+        }
+
+        if (scrollTop > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    }
+
+    updateScrollProgress();
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}

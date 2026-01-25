@@ -1227,7 +1227,7 @@
                             </div>
                             <span class="terminal-title hidden sm:block">Login Management - Complete Commands</span>
                             <button
-                                onclick="copyText('enable\nconfigure terminal\nhostname [YOUR-HOSTNAME]\nline console 0\npassword [YOUR-PASSWORD]\nlogin\nexit\nenable secret [YOUR-SECRET]\nservice password-encryption\nend\nshow running-config', event)"
+                                onclick="copyText('enable\nconfigure terminal\nhostname R1\nline console 0\npassword cisco123\nlogin\nexit\nenable secret class123\nservice password-encryption\nno service password-encryption\nend\nshow running-config', event)"
                                 class="copy-btn">
                                 <i class="fa-regular fa-copy"></i>
                                 <span class="hidden sm:inline">Copy All</span>
@@ -1242,7 +1242,7 @@
                                         class="cmd-input">configure terminal</span></div>
                                 <div class="cmd-line"><span class="cmd-prompt">Switch(config)#</span> <span
                                         class="cmd-input">hostname <span class="hostname-dynamic">R1</span></span></div>
-                                <div class="mt-3 text-gray-500">! ===== CONSOLE SECURITY =====</div>
+                                <div class="mt-3 text-gray-500">! ===== USER MODE SECURITY (CONSOLE) =====</div>
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">R1</span>(config)#</span> <span
                                         class="cmd-input">line console 0</span></div>
@@ -1259,10 +1259,14 @@
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">R1</span>(config)#</span> <span
                                         class="cmd-input">enable secret class123</span></div>
+                                <div class="mt-3 text-gray-500">! ===== PASSWORD ENCRYPTION =====</div>
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">R1</span>(config)#</span> <span
                                         class="cmd-input">service password-encryption</span></div>
-                                <div class="mt-3 text-gray-500">! ===== VERIFICATION =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">R1</span>(config)#</span> <span
+                                        class="cmd-input">no service password-encryption</span></div>
+                                <div class="mt-3 text-gray-500">! ===== FINAL VERIFICATION =====</div>
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">R1</span>(config)#</span> <span
                                         class="cmd-input">end</span></div>
@@ -2024,7 +2028,7 @@
                             </div>
                             <span class="terminal-title hidden sm:block">VLAN Configuration - Complete Commands</span>
                             <button
-                                onclick="copyText('enable\nconfigure terminal\nvlan 10\nname SALES\nexit\ninterface range fa0/1 - 5\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface vlan 10\nshutdown\nexit\nend\nshow vlan brief\nshow interfaces status', event)"
+                                onclick="copyText('enable\nconfigure terminal\nvlan 10\nname SALES\nexit\ninterface fa0/6\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface range fa0/1 - 5\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface vlan 10\nshutdown\nexit\ninterface vlan 10\nno shutdown\nexit\nend\nshow vlan brief\nshow interfaces status\nshow ip interface brief', event)"
                                 class="copy-btn">
                                 <i class="fa-regular fa-copy"></i>
                                 <span class="hidden sm:inline">Copy All</span>
@@ -2037,7 +2041,7 @@
                                         class="cmd-input">enable</span></div>
                                 <div class="cmd-line"><span class="cmd-prompt">Switch#</span> <span
                                         class="cmd-input">configure terminal</span></div>
-                                <div class="mt-3 text-gray-500">! ===== CREATE VLAN =====</div>
+                                <div class="mt-3 text-gray-500">! ===== VLAN CREATION =====</div>
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">Switch</span>(config)#</span> <span
                                         class="cmd-input">vlan 10</span></div>
@@ -2047,7 +2051,20 @@
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">Switch</span>(config-vlan)#</span> <span
                                         class="cmd-input">exit</span></div>
-                                <div class="mt-3 text-gray-500">! ===== ASSIGN PORTS TO VLAN =====</div>
+                                <div class="mt-3 text-gray-500">! ===== PORT ASSIGNMENT (SINGLE PORT) =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config)#</span> <span
+                                        class="cmd-input">interface fa0/6</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">switchport mode access</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">switchport access vlan 10</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">exit</span></div>
+                                <div class="mt-3 text-gray-500">! ===== PORT ASSIGNMENT (RANGE) =====</div>
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">Switch</span>(config)#</span> <span
                                         class="cmd-input">interface range fa0/1 - 5</span></div>
@@ -2070,7 +2087,17 @@
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">Switch</span>(config-if)#</span> <span
                                         class="cmd-input">exit</span></div>
-                                <div class="mt-3 text-gray-500">! ===== VERIFICATION =====</div>
+                                <div class="mt-3 text-gray-500">! ===== VLAN RESTORE (NO SHUTDOWN) =====</div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config)#</span> <span
+                                        class="cmd-input">interface vlan 10</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">no shutdown</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>(config-if)#</span> <span
+                                        class="cmd-input">exit</span></div>
+                                <div class="mt-3 text-gray-500">! ===== VLAN VERIFICATION =====</div>
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">Switch</span>(config)#</span> <span
                                         class="cmd-input">end</span></div>
@@ -2080,6 +2107,9 @@
                                 <div class="cmd-line"><span class="cmd-prompt"><span
                                             class="hostname-dynamic">Switch</span>#</span> <span class="cmd-input">show
                                         interfaces status</span></div>
+                                <div class="cmd-line"><span class="cmd-prompt"><span
+                                            class="hostname-dynamic">Switch</span>#</span> <span class="cmd-input">show
+                                        ip interface brief</span></div>
                             </div>
                         </div>
                     </div>
@@ -2158,6 +2188,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Scroll to Top Button with Progress -->
+    <button id="scroll-to-top" class="scroll-to-top-btn" onclick="scrollToTop()" aria-label="Scroll to top">
+        <svg class="scroll-progress-ring" width="50" height="50">
+            <circle class="scroll-progress-bg" cx="25" cy="25" r="22" />
+            <circle class="scroll-progress-bar" cx="25" cy="25" r="22" />
+        </svg>
+        <div class="scroll-top-icon">
+            <i class="fa-solid fa-arrow-up"></i>
+        </div>
+        <span class="scroll-percentage">0%</span>
+    </button>
 
     <script src="script.js"></script>
 </body>
