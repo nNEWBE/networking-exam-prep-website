@@ -10,10 +10,7 @@
             background-color: #060810;
         }
 
-        /* ============================================
-           SCROLLBAR WITH OUTER GLOW EFFECT
-           Note: Colors are dynamically set via JavaScript
-        ============================================ */
+        /* Scrollbar - Glow Effect (colors set via JS) */
 
         /* Base scrollbar styling */
         ::-webkit-scrollbar {
@@ -25,7 +22,7 @@
             background: #060810;
         }
 
-        /* Scrollbar thumb with outer glow */
+        /* Scrollbar Thumb */
         ::-webkit-scrollbar-thumb {
             background: #00bceb;
             border-radius: 10px;
@@ -41,7 +38,7 @@
                 0 0 16px 6px rgba(0, 212, 255, 0.4);
         }
 
-        /* Firefox scrollbar support */
+        /* Firefox */
         html {
             scrollbar-width: thin;
             scrollbar-color: #00bceb #060810;
@@ -218,7 +215,7 @@
             content: '';
             position: absolute;
             inset: -2px;
-            border-radius: 50px;
+            border-radius: 10px;
             background: linear-gradient(135deg, rgba(0, 188, 235, 0.5), rgba(0, 212, 255, 0.2), rgba(0, 188, 235, 0.5));
             z-index: -1;
             opacity: 0;
@@ -381,6 +378,21 @@
             --step-shadow-color: rgba(244, 63, 94, 0.4);
         }
 
+        .step-number-teal {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            --step-shadow-color: rgba(20, 184, 166, 0.4);
+        }
+
+        .step-number-indigo {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --step-shadow-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .step-number-yellow {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            --step-shadow-color: rgba(234, 179, 8, 0.4);
+        }
+
         /* Step Header */
         .step-header {
             display: flex;
@@ -467,8 +479,6 @@
             mask-composite: exclude;
             pointer-events: none;
         }
-
-
 
         .terminal-header {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
@@ -616,6 +626,18 @@
 
         .step-tip-pink {
             --tip-color: 244, 63, 94;
+        }
+
+        .step-tip-teal {
+            --tip-color: 20, 184, 166;
+        }
+
+        .step-tip-indigo {
+            --tip-color: 99, 102, 241;
+        }
+
+        .step-tip-yellow {
+            --tip-color: 234, 179, 8;
         }
 
         .step-tip-icon {
@@ -786,15 +808,39 @@
 
         /* Mobile Menu Animation */
         #mobile-menu {
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-            max-height: 0;
+            display: none;
             opacity: 0;
-            overflow: hidden;
+            transform: translateY(-10px);
+            pointer-events: none;
+            height: auto;
+            background: transparent;
+            border-color: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
         }
 
         #mobile-menu.open {
-            max-height: 400px;
+            display: block;
             opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            background: rgba(10, 12, 16, 0.98);
+            border-color: rgba(107, 114, 128, 0.5);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            animation: menuFadeIn 0.25s ease-out forwards;
+        }
+
+        @keyframes menuFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Smooth transitions */
@@ -1494,6 +1540,18 @@
 
         .step-number-pink {
             background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important;
+        }
+
+        .step-number-teal {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%) !important;
+        }
+
+        .step-number-indigo {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+        }
+
+        .step-number-yellow {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%) !important;
         }
 
         /* ========================================

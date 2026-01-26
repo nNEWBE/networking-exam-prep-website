@@ -1,24 +1,7 @@
-// ===== Enforce Dark Mode =====
+// Enforce Dark Mode
 document.documentElement.classList.add('dark');
 
-// ===== Mobile Menu Logic =====
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-
-if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('open');
-    });
-}
-
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-    });
-});
-
-// ===== Copy Function with Enhanced Feedback =====
+// Copy Function
 async function copyText(text, event) {
     const btn = event ? event.currentTarget : null;
 
@@ -69,7 +52,7 @@ async function copyText(text, event) {
     }
 }
 
-// ===== Smooth Scroll for Anchor Links =====
+// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -83,7 +66,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== Hostname Modal Functionality =====
+// Hostname Modal
 const hostnameModal = document.getElementById('hostname-modal');
 const hostnameInput = document.getElementById('hostname-input');
 const hostnameSubmitBtn = document.getElementById('hostname-submit');
@@ -179,7 +162,7 @@ if (currentHostname) {
     hostnameInput.focus();
 }
 
-// ===== Tab Switching Logic =====
+// Tab Switching
 function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -213,7 +196,7 @@ function switchTab(tabId) {
     populateStepsFilter(tabId);
 }
 
-// ===== Dynamic Scrollbar Color =====
+// Dynamic Scrollbar
 function updateScrollbarColor(tabId) {
     // Get or create the dynamic scrollbar style element
     let scrollbarStyle = document.getElementById('dynamic-scrollbar-style');
@@ -262,9 +245,7 @@ function updateScrollbarColor(tabId) {
     `;
 }
 
-// ============================================
-// STEPS FILTER FUNCTIONALITY
-// ============================================
+// Steps Filter
 
 const stepsConfig = {
     login: [
@@ -282,8 +263,7 @@ const stepsConfig = {
     ]
 };
 
-// Map steps to their summary section identifiers and commands
-// sectionComments is an array of patterns to match against section comment headers
+// Summary commands mapping
 const summaryCommandsMap = {
     login: {
         'login-basics': {
@@ -337,31 +317,46 @@ Object.values(stepsConfig).flat().forEach(step => {
 
 // Populate the steps filter dropdown
 function populateStepsFilter(tabId) {
-    const filterList = document.getElementById('steps-filter-list');
-    if (!filterList) return;
+    const filterListDesktop = document.getElementById('steps-filter-list');
+    const filterListMobile = document.getElementById('mobile-steps-filter-list');
 
-    const steps = stepsConfig[tabId] || [];
-    filterList.innerHTML = '';
+    const populateList = (list, isMobile) => {
+        if (!list) return;
 
-    steps.forEach(step => {
-        const item = document.createElement('div');
-        item.className = 'steps-filter-item';
-        item.innerHTML = `
-            <div class="custom-checkbox">
-                <input type="checkbox" id="filter-${step.id}" ${stepsVisibility[step.id] ? 'checked' : ''}>
-                <div class="checkbox-box"></div>
-            </div>
-            <label for="filter-${step.id}">${step.name}</label>
-        `;
+        const steps = stepsConfig[tabId] || [];
+        list.innerHTML = '';
 
-        const checkbox = item.querySelector('input');
-        checkbox.addEventListener('change', () => {
-            stepsVisibility[step.id] = checkbox.checked;
-            toggleStepVisibility(step, checkbox.checked, tabId);
+        steps.forEach(step => {
+            const item = document.createElement('div');
+            item.className = 'steps-filter-item';
+            const uniqueId = isMobile ? `mobile-filter-${step.id}` : `filter-${step.id}`;
+
+            item.innerHTML = `
+                <div class="custom-checkbox">
+                    <input type="checkbox" id="${uniqueId}" ${stepsVisibility[step.id] ? 'checked' : ''}>
+                    <div class="checkbox-box"></div>
+                </div>
+                <label for="${uniqueId}">${step.name}</label>
+            `;
+
+            const checkbox = item.querySelector('input');
+            checkbox.addEventListener('change', () => {
+                stepsVisibility[step.id] = checkbox.checked;
+
+                // Sync with other checkbox
+                const otherId = isMobile ? `filter-${step.id}` : `mobile-filter-${step.id}`;
+                const otherCheckbox = document.getElementById(otherId);
+                if (otherCheckbox) otherCheckbox.checked = checkbox.checked;
+
+                toggleStepVisibility(step, checkbox.checked, tabId);
+            });
+
+            list.appendChild(item);
         });
+    };
 
-        filterList.appendChild(item);
-    });
+    populateList(filterListDesktop, false);
+    populateList(filterListMobile, true);
 }
 
 // Toggle step visibility
@@ -555,12 +550,78 @@ document.addEventListener('DOMContentLoaded', function () {
     populateStepsFilter('login');
     document.body.classList.add('scrollbar-login');
     updateScrollbarColor('login');
+
+    // Mobile Menu Toggle - Robust implementation
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        // Function to close the menu
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+        }
+
+        // Function to toggle the menu
+        function toggleMobileMenu(e) {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('open');
+        }
+
+        // Remove old listeners by replacing with clone, then add new listener
+        const newBtn = mobileMenuBtn.cloneNode(true);
+        mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
+        newBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            // If menu is open and click is outside menu and outside the button
+            if (mobileMenu.classList.contains('open') &&
+                !mobileMenu.contains(e.target) &&
+                !newBtn.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                closeMobileMenu();
+            }
+        });
+    }
+
+    // Mobile Steps Filter Toggle
+    const mobileStepsBtn = document.getElementById('mobile-steps-filter-btn');
+    const mobileStepsList = document.getElementById('mobile-steps-filter-list');
+    const mobileStepsArrow = document.getElementById('mobile-steps-filter-arrow');
+
+    if (mobileStepsBtn && mobileStepsList) {
+        mobileStepsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileStepsList.classList.toggle('hidden');
+            if (mobileStepsArrow) {
+                mobileStepsArrow.style.transform = mobileStepsList.classList.contains('hidden')
+                    ? 'rotate(0deg)'
+                    : 'rotate(180deg)';
+            }
+        });
+
+        // Prevent closing menu when clicking inside filter list
+        mobileStepsList.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+
     initScrollToTop();
 });
 
-// ============================================
-// SCROLL TO TOP BUTTON WITH PROGRESS
-// ============================================
+// Scroll to Top Button
 
 function initScrollToTop() {
     const scrollBtn = document.getElementById('scroll-to-top');

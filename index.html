@@ -109,10 +109,9 @@
         </div>
     </div>
 
-    <!-- Dynamic Grid Background -->
+    <!-- Background Effects -->
     <div class="fixed inset-0 z-0 grid-bg pointer-events-none h-screen"></div>
 
-    <!-- Premium Gradient Orbs - Multiple Layers -->
     <div
         class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] gradient-orb-1 rounded-full blur-[100px] animate-pulse-slow pointer-events-none">
     </div>
@@ -130,7 +129,7 @@
     <nav
         class="fixed top-0 w-full z-50 bg-white/70 dark:bg-[#0a0c10]/70 backdrop-blur-2xl border-b border-gray-200/60 dark:border-cyan-500/10 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-18 md:h-20">
+            <div class="flex items-center justify-between min-h-[4rem] sm:min-h-[4.5rem] md:min-h-[5rem] py-2">
                 <!-- Logo -->
                 <div class="flex items-center gap-2 sm:gap-3 cursor-pointer group"
                     onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -143,7 +142,7 @@
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-1">
+                <div class="hidden min-[1230px]:flex items-center gap-1">
                     <a href="#basics"
                         class="nav-link px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
                         <i class="fa-solid fa-terminal mr-2 text-xs opacity-70"></i>Basics
@@ -184,13 +183,16 @@
                         class="nav-link nav-group-vlan hidden-force px-5 py-2.5 rounded-xl text-sm font-semibold hover:text-cisco-blue hover:bg-cisco-blue/5 transition-all duration-300">
                         <i class="fa-solid fa-scroll mr-2 text-xs opacity-70"></i>Summary
                     </a>
+                </div>
 
-                    <!-- Steps Filter Dropdown -->
-                    <div class="relative ml-2" id="steps-filter-container">
+                <!-- Right Side Actions -->
+                <div class="flex items-center gap-2">
+                    <!-- Steps Filter -->
+                    <div class="relative hidden sm:block" id="steps-filter-container">
                         <button id="steps-filter-btn"
-                            class="px-4 py-2 rounded-xl text-sm font-semibold border border-gray-300 dark:border-gray-600 hover:border-cisco-blue hover:text-cisco-blue transition-all duration-300 flex items-center gap-2">
+                            class="px-3 py-2 sm:px-4 rounded-xl text-sm font-semibold border border-gray-300 dark:border-gray-600 hover:border-cisco-blue hover:text-cisco-blue transition-all duration-300 flex items-center gap-2">
                             <i class="fa-solid fa-filter text-xs"></i>
-                            <span class="hidden sm:inline">Steps</span>
+                            <span class="hidden min-[1230px]:inline">Steps</span>
                             <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200"
                                 id="steps-filter-arrow"></i>
                         </button>
@@ -208,80 +210,98 @@
                         </div>
                     </div>
 
+                    <!-- Hostname Button -->
                     <button id="nav-hostname-btn"
-                        class="ml-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center gap-2">
+                        class="hidden sm:flex px-3 py-2 sm:px-4 rounded-xl text-sm font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 items-center gap-2">
                         <i class="fa-solid fa-server text-xs"></i>
-                        <span id="nav-hostname-display">Set Hostname</span>
+                        <span id="nav-hostname-display" class="hidden min-[1230px]:inline">Set Hostname</span>
                     </button>
-                </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center gap-3">
-                    <button id="mobile-menu-btn"
-                        class="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/5 focus:outline-none transition-all">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
-                    </button>
+                    <!-- Mobile Menu Button -->
+                    <div class="min-[1230px]:hidden flex items-center gap-3">
+                        <button id="mobile-menu-btn"
+                            class="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/5 focus:outline-none transition-all">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu"
-            class="md:hidden border-b border-gray-200/50 dark:border-gray-800/50 bg-white/90 dark:bg-[#0a0c10]/90 backdrop-blur-2xl">
-            <div class="px-4 pt-3 pb-6 space-y-2">
-                <a href="#basics"
-                    class="mobile-nav-link flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-terminal text-sm opacity-60"></i>Basics
-                </a>
-                <a href="#security"
-                    class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-shield-halved text-sm opacity-60"></i>Security
-                </a>
-                <a href="#encryption"
-                    class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-user-secret text-sm opacity-60"></i>Encryption
-                </a>
-                <a href="#verification"
-                    class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-check-double text-sm opacity-60"></i>Verification
-                </a>
-                <a href="#login-summary"
-                    class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-scroll text-sm opacity-60"></i>Summary
-                </a>
-                <a href="#vlan-creation"
-                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-layer-group text-sm opacity-60"></i>VLAN Config
-                </a>
-                <a href="#port-assignment"
-                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-network-wired text-sm opacity-60"></i>Ports
-                </a>
-                <a href="#vlan-verification"
-                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-list-check text-sm opacity-60"></i>Verify
-                </a>
-                <a href="#vlan-shutdown"
-                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-power-off text-sm opacity-60"></i>Shutdown
-                </a>
-                <a href="#vlan-summary"
-                    class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
-                    <i class="fa-solid fa-scroll text-sm opacity-60"></i>Summary
-                </a>
-                <button id="mobile-hostname-btn"
-                    class="w-full mt-2 px-4 py-3.5 rounded-xl text-base font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-server text-sm"></i>
-                    <span id="mobile-hostname-display">Set Hostname</span>
-                </button>
+        <div id="mobile-menu" class="min-[1230px]:hidden border-b">
+            <div class="flex flex-col h-[calc(100dvh-6rem)] sm:h-[calc(100dvh-7rem)]">
+                <div class="flex-1 overflow-y-auto no-scrollbar px-4 pt-3 pb-2 space-y-2">
+                    <a href="#basics"
+                        class="mobile-nav-link flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-terminal text-sm opacity-60"></i>Basics
+                    </a>
+                    <a href="#security"
+                        class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-shield-halved text-sm opacity-60"></i>Security
+                    </a>
+                    <a href="#encryption"
+                        class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-user-secret text-sm opacity-60"></i>Encryption
+                    </a>
+                    <a href="#verification"
+                        class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-check-double text-sm opacity-60"></i>Verification
+                    </a>
+                    <a href="#login-summary"
+                        class="mobile-nav-link nav-group-login flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-scroll text-sm opacity-60"></i>Summary
+                    </a>
+                    <a href="#vlan-creation"
+                        class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-layer-group text-sm opacity-60"></i>VLAN Config
+                    </a>
+                    <a href="#port-assignment"
+                        class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-network-wired text-sm opacity-60"></i>Ports
+                    </a>
+                    <a href="#vlan-verification"
+                        class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-list-check text-sm opacity-60"></i>Verify
+                    </a>
+                    <a href="#vlan-shutdown"
+                        class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-power-off text-sm opacity-60"></i>Shutdown
+                    </a>
+                    <a href="#vlan-summary"
+                        class="mobile-nav-link nav-group-vlan hidden-force flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cisco-blue hover:bg-cisco-blue/10 transition-all">
+                        <i class="fa-solid fa-scroll text-sm opacity-60"></i>Summary
+                    </a>
+                </div>
+                <!-- Sticky Footer -->
+                <div
+                    class="sm:hidden p-4 border-t border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-[#0a0c10]/50 backdrop-blur-xl">
+                    <!-- Mobile Steps Filter -->
+                    <div class="mb-3">
+                        <button id="mobile-steps-filter-btn"
+                            class="w-full flex justify-between items-center px-4 py-3.5 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                            <span class="flex items-center gap-3"><i
+                                    class="fa-solid fa-filter text-sm opacity-60"></i>Filter Steps</span>
+                            <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200"
+                                id="mobile-steps-filter-arrow"></i>
+                        </button>
+                        <div id="mobile-steps-filter-list" class="hidden pl-2 pr-2 space-y-1 mt-1"></div>
+                    </div>
+
+                    <button id="mobile-hostname-btn"
+                        class="w-full mt-2 px-4 py-3.5 rounded-xl text-base font-semibold bg-gradient-to-r from-cisco-blue to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-server text-sm"></i>
+                        <span id="mobile-hostname-display">Set Hostname</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Premium Hero Section -->
+    <!-- Hero Section -->
     <header
         class="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 reveal active overflow-hidden pt-20 pb-10">
 
@@ -296,7 +316,7 @@
             Exam Ready 2026
         </div>
 
-        <!-- Main Heading - Animated Gradient Text -->
+        <!-- Main Heading -->
         <h1
             class="text-4xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tighter mb-6 sm:mb-8 text-gray-900 dark:text-white font-heading leading-[1] sm:leading-[0.95]">
             <span class="gradient-text-animated">
@@ -313,7 +333,7 @@
             your configuration tasks.
         </p>
 
-        <!-- CTA Buttons - Modern Design -->
+        <!-- CTA Buttons -->
         <div class="mt-8 sm:mt-10 md:mt-12 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
             <a href="#basics" class="btn-primary text-sm sm:text-base">
                 <i class="fa-solid fa-rocket text-xs sm:text-sm"></i>
@@ -331,7 +351,7 @@
     <!-- Main Content -->
     <main class="relative z-10 max-w-4xl mx-auto px-3 sm:px-4 pb-20 sm:pb-32 space-y-16 sm:space-y-24 md:space-y-32">
 
-        <!-- Tab Navigation Section -->
+        <!-- Tab Navigation -->
         <section class="text-center reveal relative z-20 mb-12 sm:mb-16">
             <div class="mb-8">
                 <h2 class="text-2xl sm:text-3xl font-bold font-heading mb-3 text-gray-900 dark:text-white">Configuration
@@ -1024,11 +1044,11 @@
                         <div class="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
 
                             <div
-                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 blur-lg opacity-40">
+                                class="absolute inset-0 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-500 blur-lg opacity-40">
                             </div>
 
                             <div
-                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-pink-400 via-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
+                                class="relative w-full h-full rounded-2xl bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 flex items-center justify-center shadow-lg shadow-amber-500/30">
                                 <span class="text-white text-lg sm:text-xl md:text-2xl font-bold font-heading">05</span>
                             </div>
                         </div>
@@ -1043,16 +1063,16 @@
                 </div>
 
                 <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 relative overflow-hidden reveal section-glow"
-                    style="--glow-color: #a855f7;">
+                    style="--glow-color: #eab308;">
 
                     <!-- Step 1 -->
                     <div class="mb-8 sm:mb-10 group step-reveal">
                         <div class="step-card">
-                            <div class="step-number step-number-purple">1</div>
+                            <div class="step-number step-number-yellow">1</div>
                             <div class="step-card-inner">
                                 <div class="step-header">
                                     <div>
-                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                        <h3 class="step-title" style="--step-icon-color: #eab308;">
                                             <i class="fa-solid fa-right-from-bracket"></i>
                                             Exit Config Mode
                                         </h3>
@@ -1062,7 +1082,7 @@
                                         </p>
                                     </div>
                                     <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
+                                        style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(234, 179, 8, 0.05) 100%); color: #eab308; border-color: rgba(234, 179, 8, 0.2);">
                                         Exit
                                     </span>
                                 </div>
@@ -1096,13 +1116,13 @@
                                     </div>
                                 </div>
 
-                                <div class="step-tip step-tip-purple">
+                                <div class="step-tip step-tip-yellow">
                                     <div class="step-tip-icon">
                                         <i class="fa-solid fa-lightbulb"></i>
                                     </div>
                                     <p class="step-tip-text">
                                         <strong>Tip:</strong> You can also use <code
-                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-purple-400 font-mono text-xs">Ctrl+Z</code>
+                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-yellow-400 font-mono text-xs">Ctrl+Z</code>
                                         as a keyboard shortcut to exit configuration mode instantly.
                                     </p>
                                 </div>
@@ -1113,11 +1133,11 @@
                     <!-- Step 2 -->
                     <div class="group step-reveal">
                         <div class="step-card">
-                            <div class="step-number step-number-purple">2</div>
+                            <div class="step-number step-number-yellow">2</div>
                             <div class="step-card-inner">
                                 <div class="step-header">
                                     <div>
-                                        <h3 class="step-title" style="--step-icon-color: #a855f7;">
+                                        <h3 class="step-title" style="--step-icon-color: #eab308;">
                                             <i class="fa-solid fa-file-code"></i>
                                             Show Running Config
                                         </h3>
@@ -1127,7 +1147,7 @@
                                         </p>
                                     </div>
                                     <span class="step-badge hidden md:inline-flex"
-                                        style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); color: #a855f7; border-color: rgba(168, 85, 247, 0.2);">
+                                        style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(234, 179, 8, 0.05) 100%); color: #eab308; border-color: rgba(234, 179, 8, 0.2);">
                                         Verify
                                     </span>
                                 </div>
@@ -1173,13 +1193,13 @@
                                     </div>
                                 </div>
 
-                                <div class="step-tip step-tip-purple">
+                                <div class="step-tip step-tip-yellow">
                                     <div class="step-tip-icon">
                                         <i class="fa-solid fa-lightbulb"></i>
                                     </div>
                                     <p class="step-tip-text">
                                         <strong>Tip:</strong> Shortcut: <code
-                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-purple-400 font-mono text-xs">sh run</code>.
+                                            class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-yellow-400 font-mono text-xs">sh run</code>.
                                         Use <code
                                             class="bg-gray-800/30 dark:bg-gray-700/30 px-1 py-0.5 rounded text-gray-400 font-mono text-xs">Space</code>
                                         to see next page or <code
